@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "./register.styles.css";
 import { useStyles } from "../login/material.styles";
+import axios from "../../utilities/axios/axios";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +13,17 @@ const Register = () => {
 
   const classes = useStyles();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("submit");
+    try {
+      const respone = await axios.post("/register", {
+        email,
+        password,
+      });
+      console.log("submit", respone.data);
+    } catch (error) {
+      console.log("ERROR:", error);
+    }
     setPassword("");
     setEmail("");
     setValidatePassword("");
