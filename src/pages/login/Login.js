@@ -18,8 +18,8 @@ const Login = () => {
         password,
       });
       const accessToken = respone.data;
+      console.log(accessToken);
       const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
       await delay(10000);
       console.log("hi2");
       const ans = await axios.get("/posts", {

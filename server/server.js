@@ -11,7 +11,7 @@ const PORT = process.env.PORT || "5000";
 const USERS = [
   {
     name: "alex",
-    email: "alex@gmail.com",
+    email: "alex",
     role: "ADMIN",
     password: "$2b$10$baE6J89.IUC/wrCFVmMrD.eisbJQGaXoOBWBM2GlclzP4MLZAf5mO",
   },
@@ -32,7 +32,7 @@ app.post("/login", async (req, res) => {
       req.body?.password,
       user.password
     );
-
+    console.log(hashResponse);
     if (hashResponse) {
       const accessToken = await jwt.sign(
         {
