@@ -48,6 +48,7 @@ const Header = ({ history }) => {
 	const handleLogOut = () => {
 		setCurrentUser(null);
 		setAnchorEl(null);
+		localStorage.clear();
 		history.push('/login');
 	};
 
@@ -72,7 +73,10 @@ const Header = ({ history }) => {
 					<Tab
 						label='ABOUT'
 						onClick={() => {
-							history.push('/about');
+							history.push({
+								pathname: '/profile',
+								state: currentUser,
+							});
 						}}
 					/>
 					<Tab
@@ -94,8 +98,13 @@ const Header = ({ history }) => {
 							Open Menu
 						</Avatar>
 						<Menu className={classes.menu} id='simple-menu' anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
-							<MenuItem onClick={handleClose}>Home</MenuItem>
-							<MenuItem onClick={handleClose}>Profile</MenuItem>
+							<Link
+								to={{
+									pathname: '/profile',
+									state: currentUser,
+								}}>
+								<MenuItem onClick={handleClose}>Profile</MenuItem>
+							</Link>
 							{isAdmin && (
 								<Link to='/admin-panel'>
 									<MenuItem onClick={handleClose}>Admin Panel</MenuItem>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { contextReducer } from './user.reducer';
 
 const UserContext = createContext();
@@ -13,7 +13,7 @@ const initialState = {
 
 export const UserProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(contextReducer, initialState);
-	console.log(state);
+
 	const setCurrentUser = (user) => {
 		dispatch({ type: 'SET_CURRENT_USER', payload: user });
 	};

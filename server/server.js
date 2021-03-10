@@ -6,6 +6,8 @@ const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
+const { adminAuth } = require('./middlewares/adminauth');
+
 const { PrismaClient } = require('@prisma/client');
 
 const PORT = process.env.PORT || '5000';
@@ -17,7 +19,6 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/login', async (req, res) => {
-	console.log(req.body.email);
 	const response = await prisma.users.findMany({
 		where: {
 			email: { equals: req.body.email },
@@ -29,14 +30,15 @@ app.post('/login', async (req, res) => {
 	}
 	try {
 		const hashResponse = await bcrypt.compare(req.body.password, user.password);
+		console.log(hashResponse);
 		if (hashResponse) {
 			const accessToken = await jwt.sign(
 				{
-					name: user.name,
+					id: user.id,
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
-					expiresIn: '10m',
+					expiresIn: '20m',
 				}
 			);
 			res.status(200).send({
@@ -78,7 +80,6 @@ app.post('/register', async (req, res) => {
 
 app.put('/update', tokenAuth, async (req, res) => {
 	const { userName, email, id } = req.body;
-	console.log(req.body);
 	try {
 		const updatedUser = await prisma.users.update({
 			where: {
@@ -96,9 +97,14 @@ app.put('/update', tokenAuth, async (req, res) => {
 	}
 });
 
+app.get('/users', tokenAuth, adminAuth, async (req, res) => {
+	const users = await prisma.users.findMany();
+	res.send(users);
+});
+
 app.delete('/delete', tokenAuth, async (req, res) => {
 	const { id } = req.body;
-	console.log(req.body);
+	console.log(req.user);
 	try {
 		const deletedUser = await prisma.users.delete({
 			where: {
