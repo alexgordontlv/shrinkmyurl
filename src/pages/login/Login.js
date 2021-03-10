@@ -6,16 +6,20 @@ import './login.styles.css';
 import { useStyles } from './material.styles';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
+import Spinner from '../../components/spinner/Spinner';
 
 const Login = () => {
 	const context = useUserContext();
 	let history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const [loading, setLoading] = useState(false);
 	const classes = useStyles();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setLoading(true);
 		try {
 			const response = await axios.post('/login', {
 				email,
@@ -29,37 +33,43 @@ const Login = () => {
 			console.log('ERROR:', error);
 		}
 		setPassword('');
+
 		setEmail('');
+		setLoading(false);
 	};
 
 	return (
 		<div className='login'>
 			<h3>Sign In</h3>
-			<form className='form' noValidate>
-				<TextField
-					className={classes.textfield}
-					label='Email'
-					name='userEmail'
-					type='email'
-					onChange={(e) => setEmail(e.target.value)}
-					value={email}
-					variant='outlined'
-					required
-				/>
-				<TextField
-					className={classes.textfield}
-					label='Password'
-					name='userPassword'
-					value={password}
-					type='password'
-					variant='outlined'
-					required
-					onChange={(e) => setPassword(e.target.value)}
-				/>
-				<Button variant='outlined' onClick={handleSubmit} type='submit' color='primary' className={classes.button}>
-					Sign In
-				</Button>
-			</form>
+			{loading ? (
+				<Spinner />
+			) : (
+				<form className='form' noValidate>
+					<TextField
+						className={classes.textfield}
+						label='Email'
+						name='userEmail'
+						type='email'
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
+						variant='outlined'
+						required
+					/>
+					<TextField
+						className={classes.textfield}
+						label='Password'
+						name='userPassword'
+						value={password}
+						type='password'
+						variant='outlined'
+						required
+						onChange={(e) => setPassword(e.target.value)}
+					/>
+					<Button variant='outlined' onClick={handleSubmit} type='submit' color='primary' className={classes.button}>
+						Sign In
+					</Button>
+				</form>
+			)}
 		</div>
 	);
 };

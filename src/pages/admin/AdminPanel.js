@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UserCard from '../../components/usercard/UserCard';
 import axios from '../../utilities/axios/axios';
 import './adminpanel.styles.css';
+import Spinner from '../../components/spinner/Spinner';
 
 const AdminPanel = () => {
 	const [users, setUsers] = useState([]);
@@ -15,9 +16,7 @@ const AdminPanel = () => {
 
 	return (
 		<div className='adminpanel'>
-			{users.map((user) => (
-				<UserCard key={user.id} location={{ state: { name: user.name, email: user.email } }} />
-			))}
+			{!users.length ? <Spinner /> : users.map((user) => <UserCard key={user.id} location={{ state: { name: user.name, email: user.email } }} />)}
 		</div>
 	);
 };
