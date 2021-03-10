@@ -28,9 +28,9 @@ const Register = () => {
 		} catch (error) {
 			console.log('ERROR:', error);
 		}
-		// setPassword('');
-		// setEmail('');
-		// setValidatePassword('');
+		setPassword('');
+		setEmail('');
+		setValidatePassword('');
 	};
 	return (
 		<div className='register'>

@@ -57,7 +57,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-	const { userName, email, password } = req.body;
+	const { userName, email, password, role } = req.body;
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
 		const result = await prisma.users.create({
@@ -65,10 +65,11 @@ app.post('/register', async (req, res) => {
 				name: userName,
 				email,
 				password: hashedPassword,
+				role,
 			},
 		});
 		console.log(result);
-		res.status(201).send();
+		res.status(201).json({ msg: 'Successfully added user' });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: 'Could Not Write To DB' });
@@ -91,22 +92,23 @@ app.put('/update', tokenAuth, async (req, res) => {
 		console.log(updatedUser);
 		res.status(201).json({ msg: 'Successfully updated user' });
 	} catch (error) {
-		res.tatus(400).json({ error });
+		res.status(400).json({ error });
 	}
 });
-app.delete('/update', tokenAuth, async (req, res) => {
-	const { userName, email, id } = req.body;
+
+app.delete('/delete', tokenAuth, async (req, res) => {
+	const { id } = req.body;
 	console.log(req.body);
 	try {
-		const updatedUser = await prisma.users.delete({
+		const deletedUser = await prisma.users.delete({
 			where: {
 				id: parseInt(id),
 			},
 		});
-		console.log(updatedUser);
-		res.status(201).json({ msg: 'Successfully updated user' });
+		console.log(deletedUser);
+		res.status(201).json({ msg: 'Successfully deleted user' });
 	} catch (error) {
-		res.tatus(400).json({ error });
+		res.status(400).json({ error });
 	}
 });
 
