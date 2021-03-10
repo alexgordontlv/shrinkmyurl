@@ -12,7 +12,7 @@ import { useUserContext } from '../../context/user.context';
 import axios from '../../utilities/axios/axios';
 import { Box } from '@material-ui/core';
 
-function FormDialog({ id, name, email }) {
+function FormDialog({ id, name, email, role }) {
 	const [state, setState] = useState({
 		name,
 		email,
@@ -21,14 +21,16 @@ function FormDialog({ id, name, email }) {
 		state: { isAdmin },
 		setCurrentUser,
 	} = useUserContext();
-
+	console.log(role);
 	const [open, setOpen] = useState(false);
-
+	const [checked, setChecked] = useState(role === 'admin' ? true : false);
 	const handleChange = (event) => {
 		setState({ ...state, [event.target.name]: event.target.value });
 	};
-	const handleCecked = (event) => {
-		setState({ ...state, [event.target.name]: event.target.checked });
+	const handleChecked = (event) => {
+		setChecked((checked) => !checked);
+		setState({ ...state, role: event.target.checked ? 'admin' : 'user' });
+		console.log(state);
 	};
 
 	const handleSubmit = async () => {
@@ -82,10 +84,7 @@ function FormDialog({ id, name, email }) {
 							</div>
 							<div className='right'>
 								{isAdmin && (
-									<FormControlLabel
-										control={<Checkbox checked={state.elevator} onChange={handleCecked} name='elevator' />}
-										label='Set Admin'
-									/>
+									<FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} name='role' />} label='Set Admin' />
 								)}
 							</div>
 						</div>

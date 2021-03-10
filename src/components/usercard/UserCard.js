@@ -23,11 +23,10 @@ const useStyles = makeStyles({
 
 export default function UserCard({
 	location: {
-		state: { name, email, id },
+		state: { name, email, id, role },
 	},
 }) {
 	const classes = useStyles();
-
 	const handleUpdate = async () => {
 		const res = await handleUserUpdate({ name, email, id });
 		console.log(res);
@@ -49,7 +48,7 @@ export default function UserCard({
 					</CardContent>
 				</CardActionArea>
 				<CardActions>
-					<FormDialog name={name} id={id} email={email} />
+					<FormDialog name={name} id={id} email={email} role={role} />
 					<Button size='small' color='primary'>
 						Delete
 					</Button>

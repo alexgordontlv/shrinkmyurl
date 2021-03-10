@@ -16,7 +16,7 @@ const AdminPanel = () => {
 
 	return (
 		<div className='adminpanel'>
-			{!users.length ? <Spinner /> : users.map((user) => <UserCard key={user.id} location={{ state: { name: user.name, email: user.email } }} />)}
+			{!users.length ? <Spinner /> : users.map((user) => <UserCard key={user.id} location={{ state: { name: user.name, email: user.email , id: user.id, role: user.role} }} />)}
 		</div>
 	);
 };

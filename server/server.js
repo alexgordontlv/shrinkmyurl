@@ -79,9 +79,9 @@ app.post('/register', async (req, res) => {
 });
 
 app.put('/update', tokenAuth, async (req, res) => {
-	const { name, email, id } = req.body;
+	const { name, email, id, role } = req.body;
 	console.log(req.body);
-	console.log(id);
+
 	try {
 		const updatedUser = await prisma.users.update({
 			where: {
@@ -90,6 +90,7 @@ app.put('/update', tokenAuth, async (req, res) => {
 			data: {
 				name: name,
 				email,
+				role,
 			},
 		});
 		console.log(updatedUser);
