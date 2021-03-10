@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Avatar, CardActionArea, CardActions, Button, Typography } from '@material-ui/core/';
-
+import { handleUserUpdate } from '../../utilities/uitiltyfunctions/handleUserUpdate';
+import FormDialog from '../formdialog/FormDialog';
 const useStyles = makeStyles({
 	rootDiv: {
 		display: 'flex',
@@ -22,11 +23,15 @@ const useStyles = makeStyles({
 
 export default function UserCard({
 	location: {
-		state: { name, email },
+		state: { name, email, id },
 	},
 }) {
 	const classes = useStyles();
 
+	const handleUpdate = async () => {
+		const res = await handleUserUpdate({ name, email, id });
+		console.log(res);
+	};
 	return (
 		<div className={classes.rootDiv}>
 			<Card className={classes.root}>
@@ -44,9 +49,7 @@ export default function UserCard({
 					</CardContent>
 				</CardActionArea>
 				<CardActions>
-					<Button size='small' color='primary'>
-						Update
-					</Button>
+					<FormDialog name={name} id={id} email={email} />
 					<Button size='small' color='primary'>
 						Delete
 					</Button>

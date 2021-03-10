@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
 	}
 	try {
 		const hashResponse = await bcrypt.compare(req.body.password, user.password);
-		console.log(hashResponse);
+
 		if (hashResponse) {
 			const accessToken = await jwt.sign(
 				{
@@ -79,14 +79,16 @@ app.post('/register', async (req, res) => {
 });
 
 app.put('/update', tokenAuth, async (req, res) => {
-	const { userName, email, id } = req.body;
+	const { name, email, id } = req.body;
+	console.log(req.body);
+	console.log(id);
 	try {
 		const updatedUser = await prisma.users.update({
 			where: {
 				id: parseInt(id),
 			},
 			data: {
-				name: userName,
+				name: name,
 				email,
 			},
 		});
