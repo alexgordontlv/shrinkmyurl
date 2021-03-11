@@ -25,7 +25,6 @@ const Login = () => {
 				email,
 				password,
 			});
-			console.log(response.data.user);
 			context.setCurrentUser(response.data.user);
 			localStorage.setItem('currentUser', JSON.stringify(response.data.user));
 			history.push('/');

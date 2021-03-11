@@ -21,7 +21,6 @@ const Mainpage = () => {
 				<Suspense fallback={<Spinner />}>
 					<Route exact path='/login' render={(props) => (!currentUser ? <Login /> : <Redirect to='/' />)} />
 					<Route exact path='/register'>
-						s
 						<Register />
 					</Route>
 					<PrivateRoute exact path='/admin-panel' admin component={AdminPanel} />
