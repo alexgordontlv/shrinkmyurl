@@ -30,7 +30,7 @@ app.post('/login', async (req, res) => {
 	}
 	try {
 		const hashResponse = await bcrypt.compare(req.body.password, user.password);
-
+		console.log(hashResponse);
 		if (hashResponse) {
 			const accessToken = await jwt.sign(
 				{
@@ -78,7 +78,27 @@ app.post('/register', async (req, res) => {
 	}
 });
 
-app.put('/update', tokenAuth, async (req, res) => {
+app.post('/add-user', tokenAuth, adminAuth, async (req, res) => {
+	const { name, email, role } = req.body;
+	try {
+		const hashedPassword = await bcrypt.hash('123456', 10);
+		const result = await prisma.users.create({
+			data: {
+				name: name,
+				email,
+				password: hashedPassword,
+				role,
+			},
+		});
+		console.log(result);
+		res.status(201).json({ msg: 'Successfully added user' });
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error: 'Could Not Write To DB' });
+	}
+});
+
+app.put('/update', tokenAuth, adminAuth, async (req, res) => {
 	const { name, email, id, role } = req.body;
 	console.log(req.body);
 
@@ -105,7 +125,7 @@ app.get('/users', tokenAuth, adminAuth, async (req, res) => {
 	res.send(users);
 });
 
-app.delete('/delete', tokenAuth, async (req, res) => {
+app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
 	const { id } = req.body;
 	console.log(req.user);
 	try {

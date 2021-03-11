@@ -5,12 +5,14 @@ import Button from '@material-ui/core/Button';
 import './register.styles.css';
 import { useStyles } from '../login/material.styles';
 import axios from '../../utilities/axios/axios';
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
 	const [userName, setUserName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [validatepassword, setValidatePassword] = useState('');
+	let history = useHistory();
 
 	const classes = useStyles();
 
@@ -24,14 +26,16 @@ const Register = () => {
 				email,
 				password,
 			});
-			console.log('submit', respone.data);
+			history.push('/login');
 		} catch (error) {
 			console.log('ERROR:', error);
 		}
 		setPassword('');
+		setUserName('');
 		setEmail('');
 		setValidatePassword('');
 	};
+
 	return (
 		<div className='register'>
 			<h3>Register</h3>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './header.styles.css';
 import Search from '../search/Search';
 import { Tabs, Tab, Menu, MenuItem, makeStyles, Avatar } from '@material-ui/core/';
@@ -73,16 +73,13 @@ const Header = ({ history }) => {
 					<Tab
 						label='ABOUT'
 						onClick={() => {
-							history.push({
-								pathname: '/profile',
-								state: currentUser,
-							});
+							history.push('/about');
 						}}
 					/>
 					<Tab
 						label='CONTACT US'
 						onClick={() => {
-							history.push('/admin-panel');
+							history.push('/contact');
 						}}
 					/>
 				</Tabs>

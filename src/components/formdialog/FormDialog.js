@@ -12,7 +12,7 @@ import { useUserContext } from '../../context/user.context';
 import axios from '../../utilities/axios/axios';
 import { Box } from '@material-ui/core';
 
-function FormDialog({ id, name, email, role }) {
+function FormDialog({ id, name, email, role, setRender, addUser }) {
 	const [state, setState] = useState({
 		name,
 		email,
@@ -35,13 +35,21 @@ function FormDialog({ id, name, email, role }) {
 
 	const handleSubmit = async () => {
 		try {
-			const response = await axios.put('/update', { ...state, id });
-			console.log(response.date);
-			setCurrentUser(state);
+			if (!addUser) {
+				console.log('upate');
+				const response = await axios.put('/update', { ...state, id });
+				console.log(response.date);
+				!isAdmin && setCurrentUser(state);
+			} else {
+				console.log('add');
+				const response = await axios.post('/add-user', { ...state, id });
+				console.log(response.date);
+			}
 		} catch (error) {
 			return error;
 		}
 		setState({ name: '', email: '' });
+		setRender && setRender((value) => !value);
 		setOpen(false);
 	};
 
@@ -52,9 +60,15 @@ function FormDialog({ id, name, email, role }) {
 	return (
 		<Box width='100%'>
 			<div>
-				<Button size='small' color='primary' onClick={() => setOpen(true)}>
-					Update
-				</Button>
+				{!addUser ? (
+					<Button size='small' color='primary' onClick={() => setOpen(true)}>
+						Update
+					</Button>
+				) : (
+					<Button size='small' color='primary' variant='outlined' onClick={() => setOpen(true)}>
+						Add User
+					</Button>
+				)}
 				<Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
 					<DialogTitle id='form-dialog-title'></DialogTitle>
 					<DialogContent>
