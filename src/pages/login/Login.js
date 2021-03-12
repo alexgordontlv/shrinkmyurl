@@ -21,6 +21,7 @@ const Login = () => {
 		event.preventDefault();
 		setLoading(true);
 		console.log(axios.defaults);
+		console.log(process.env.baseURL);
 		try {
 			const response = await axios.post('/login', {
 				email,
