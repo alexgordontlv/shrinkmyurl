@@ -18,19 +18,22 @@ const AdminPanel = () => {
 
 	return (
 		<div className='adminpanel'>
-			<FormDialog addUser />
-
-			{!users.length ? (
-				<Spinner />
-			) : (
-				users.map((user) => (
-					<UserCard
-						setRender={setRender}
-						key={user.id}
-						location={{ state: { name: user.name, email: user.email, id: user.id, role: user.role } }}
-					/>
-				))
-			)}
+			<div className='adminpanel__left'>
+				<FormDialog addUser />
+			</div>
+			<div className='adminpanel__right'>
+				{!users.length ? (
+					<Spinner />
+				) : (
+					users.map((user) => (
+						<UserCard
+							setRender={setRender}
+							key={user.id}
+							location={{ state: { name: user.name, email: user.email, id: user.id, role: user.role } }}
+						/>
+					))
+				)}
+			</div>
 		</div>
 	);
 };

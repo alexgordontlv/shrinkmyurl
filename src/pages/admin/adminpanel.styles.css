@@ -4,3 +4,18 @@
 	justify-content: center;
 	align-items: center;
 }
+.adminpanel__left {
+	flex: 0.2;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.adminpanel__right {
+	flex: 0.8;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}

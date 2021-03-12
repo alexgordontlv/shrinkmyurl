@@ -58,62 +58,58 @@ function FormDialog({ id, name, email, role, setRender, addUser }) {
 	};
 
 	return (
-		<Box width='100%'>
-			<div>
-				{!addUser ? (
-					<Button size='small' color='primary' onClick={() => setOpen(true)}>
+		<div>
+			{!addUser ? (
+				<Button size='small' color='primary' onClick={() => setOpen(true)}>
+					Update
+				</Button>
+			) : (
+				<Button size='small' color='primary' variant='outlined' onClick={() => setOpen(true)}>
+					Add User
+				</Button>
+			)}
+			<Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
+				<DialogTitle id='form-dialog-title'></DialogTitle>
+				<DialogContent>
+					<div className='container'>
+						<div className='left'>
+							<TextField
+								autoFocus
+								margin='dense'
+								name='name'
+								label='Name'
+								type='text'
+								value={state.name}
+								onChange={handleChange}
+								fullWidth
+								className='field'
+							/>
+							<TextField
+								margin='dense'
+								name='email'
+								label='Email'
+								type='text'
+								value={state.email}
+								onChange={handleChange}
+								fullWidth
+								className='field'
+							/>
+						</div>
+						<div className='right'>
+							{isAdmin && <FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} name='role' />} label='Set Admin' />}
+						</div>
+					</div>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} variant='outlined' className='button'>
+						Cancel
+					</Button>
+					<Button onClick={handleSubmit} variant='outlined' className='button'>
 						Update
 					</Button>
-				) : (
-					<Button size='small' color='primary' variant='outlined' onClick={() => setOpen(true)}>
-						Add User
-					</Button>
-				)}
-				<Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
-					<DialogTitle id='form-dialog-title'></DialogTitle>
-					<DialogContent>
-						<div className='container'>
-							<div className='left'>
-								<TextField
-									autoFocus
-									margin='dense'
-									name='name'
-									label='Name'
-									type='text'
-									value={state.name}
-									onChange={handleChange}
-									fullWidth
-									className='field'
-								/>
-								<TextField
-									margin='dense'
-									name='email'
-									label='Email'
-									type='text'
-									value={state.email}
-									onChange={handleChange}
-									fullWidth
-									className='field'
-								/>
-							</div>
-							<div className='right'>
-								{isAdmin && (
-									<FormControlLabel control={<Checkbox checked={checked} onChange={handleChecked} name='role' />} label='Set Admin' />
-								)}
-							</div>
-						</div>
-					</DialogContent>
-					<DialogActions>
-						<Button onClick={handleClose} variant='outlined' className='button'>
-							Cancel
-						</Button>
-						<Button onClick={handleSubmit} variant='outlined' className='button'>
-							Update
-						</Button>
-					</DialogActions>
-				</Dialog>
-			</div>
-		</Box>
+				</DialogActions>
+			</Dialog>
+		</div>
 	);
 }
 
