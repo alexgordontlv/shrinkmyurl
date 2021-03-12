@@ -20,6 +20,7 @@ const Login = () => {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		setLoading(true);
+		console.log(axios.defaults);
 		try {
 			const response = await axios.post('/login', {
 				email,
