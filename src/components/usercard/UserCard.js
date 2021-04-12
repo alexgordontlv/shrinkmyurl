@@ -1,11 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Avatar, CardActionArea, CardActions, Button, Typography } from '@material-ui/core/';
-import { handleUserUpdate } from '../../utilities/uitiltyfunctions/handleUserUpdate';
 import FormDialog from '../formdialog/FormDialog';
 import DeleteDialog from '../deletedialog/DeleteDialog';
-
-import { useUserContext } from '../../context/user.context';
 
 const useStyles = makeStyles({
 	rootDiv: {

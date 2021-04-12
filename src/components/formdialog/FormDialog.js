@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,27 +10,30 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useUserContext } from '../../context/user.context';
 import axios from '../../utilities/axios/axios';
-import { Box } from '@material-ui/core';
 
 function FormDialog({ id, name, email, role, setRender, addUser }) {
-	const [state, setState] = useState({
-		name,
-		email,
-	});
+	const [state, setState] = useState({});
+	useEffect(() => {
+		setState({
+			name: name,
+			email: email,
+		});
+	}, [name, email]);
+
 	const {
 		state: { isAdmin },
 		setCurrentUser,
 	} = useUserContext();
-	console.log(role);
+
 	const [open, setOpen] = useState(false);
 	const [checked, setChecked] = useState(role === 'admin' ? true : false);
+
 	const handleChange = (event) => {
 		setState({ ...state, [event.target.name]: event.target.value });
 	};
 	const handleChecked = (event) => {
 		setChecked((checked) => !checked);
 		setState({ ...state, role: event.target.checked ? 'admin' : 'user' });
-		console.log(state);
 	};
 
 	const handleSubmit = async () => {
@@ -38,12 +41,12 @@ function FormDialog({ id, name, email, role, setRender, addUser }) {
 			if (!addUser) {
 				console.log('upate');
 				const response = await axios.put('/update', { ...state, id });
-				console.log(response.date);
+				console.log(response.data);
 				!isAdmin && setCurrentUser(state);
 			} else {
 				console.log('add');
 				const response = await axios.post('/add-user', { ...state, id });
-				console.log(response.date);
+				console.log(response.data);
 			}
 		} catch (error) {
 			return error;
