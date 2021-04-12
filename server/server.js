@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
 
+const cache = {};
+
 const { PrismaClient } = require('@prisma/client');
 
 const PORT = process.env.PORT || '5000';
@@ -141,7 +143,16 @@ app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
 	}
 });
 
+app.post('createurl', async (req, res) => {
+	const { originalUrl } = req.body;
+	console.log(originalUrl);
+	const randomId = Math.floor((1 + Math.random()) * 0x100000000)
+		.toString(16)
+		.substring(1);
+});
+
 app.use((req, res, next) => {
+	console.log(req.path);
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
