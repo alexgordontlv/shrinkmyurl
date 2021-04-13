@@ -143,6 +143,29 @@ app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
 	}
 });
 
+app.post('/createurluser', async (req, res) => {
+	const { originalUrl } = req.body;
+
+	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
+		.toString(16)
+		.substring(1);
+	console.log(randomId, originalUrl);
+	try {
+		const updatedUser = await prisma.users.update({
+			where: {
+				id: parseInt(id),
+			},
+			urls: {
+				hash: randomId,
+				originalUrl,
+			},
+		});
+		return res.status(201).json({ msg: 'Successfully created url' });
+	} catch (error) {
+		return res.status(400).json({ error });
+	}
+});
+
 app.post('/createurl', async (req, res) => {
 	const { originalUrl } = req.body;
 
@@ -150,18 +173,30 @@ app.post('/createurl', async (req, res) => {
 		.toString(16)
 		.substring(1);
 	console.log(randomId, originalUrl);
-	if (!(randomId in cache)) {
-		cache[randomId] = originalUrl;
-		res.status(201).json('msg: url created succesfully', 'shortenUrl:');
-	} else {
-		res.status(400).json('msg: not valid hash');
+	try {
+		await prisma.urls.create({
+			data: {
+				hash: randomId,
+				originalUrl,
+			},
+		});
+		return res.status(201).json({ msg: 'Successfully created url' });
+	} catch (error) {
+		return res.status(400).json({ error });
 	}
 });
 
-app.use((req, res, next) => {
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
+app.use(async (req, res, next) => {
 	console.log(req.path);
-	const reqUrl = req.path.substring(1);
-	if (reqUrl in cache) res.redirect(cache[reqUrl]);
+	const hashedUrl = await prisma.urls.findUnique({
+		where: {
+			hash: req.path.substring(1),
+		},
+	});
+	console.log('page load', hashedUrl);
+	if (hashedUrl) res.redirect(hashedUrl.originalUrl);
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
