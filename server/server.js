@@ -144,24 +144,32 @@ app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
 });
 
 app.post('/createurluser', async (req, res) => {
-	const { originalUrl } = req.body;
+	const { originalUrl, userId, email } = req.body;
 
 	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
 		.toString(16)
 		.substring(1);
 	console.log(randomId, originalUrl);
 	try {
-		const updatedUser = await prisma.users.update({
-			where: {
-				id: parseInt(id),
-			},
-			urls: {
+		await prisma.urls.create({
+			data: {
 				hash: randomId,
 				originalUrl,
+				updatedAt: new Date(),
+				author: { connect: { email } },
 			},
 		});
-		return res.status(201).json({ msg: 'Successfully created url' });
+		//get current user urles by id
+		// const user = await prisma.users
+		// 	.findUnique({
+		// 		where: {
+		// 			id: parseInt(userId),
+		// 		},
+		// 	})
+		// 	.urls({});
+		return res.status(201).json({ msg: 'Successfully created url', user });
 	} catch (error) {
+		console.log(error);
 		return res.status(400).json({ error });
 	}
 });
@@ -178,10 +186,12 @@ app.post('/createurl', async (req, res) => {
 			data: {
 				hash: randomId,
 				originalUrl,
+				updatedAt: new Date(),
 			},
 		});
 		return res.status(201).json({ msg: 'Successfully created url' });
 	} catch (error) {
+		console.log(error);
 		return res.status(400).json({ error });
 	}
 });
@@ -190,13 +200,24 @@ app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.use(async (req, res, next) => {
 	console.log(req.path);
-	const hashedUrl = await prisma.urls.findUnique({
-		where: {
-			hash: req.path.substring(1),
-		},
-	});
-	console.log('page load', hashedUrl);
-	if (hashedUrl) res.redirect(hashedUrl.originalUrl);
+	try {
+		const hashedUrl = await prisma.urls.update({
+			where: {
+				hash: req.path.substring(1),
+			},
+			data: {
+				viewCount: {
+					increment: 1,
+				},
+				updatedAt: new Date(),
+			},
+		});
+		console.log('page load', hashedUrl);
+		if (hashedUrl) res.redirect(hashedUrl.originalUrl);
+	} catch (error) {
+		console.log(error);
+	}
+
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
