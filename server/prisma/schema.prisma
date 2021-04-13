@@ -1,17 +1,29 @@
-generator client {
-  provider = "prisma-client-js"
-}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+generator cliegitnt {
+  provider = "prisma-client-js"
+}
+
 model Users {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   name      String   @db.VarChar(200)
-  email     String   @db.VarChar(200)
+  email     String   @unique @db.VarChar(200)
   password  String   @db.VarChar(200)
   role      String   @default("user") @db.VarChar(200)
+  urls      Urls[]
+}
+
+model Urls {
+  id          Int      @id @default(autoincrement())
+  hash        String   @unique @db.VarChar(100)
+  originalUrl String   @db.VarChar(500)
+  createdAt   DateTime @default(now())
+  author      Users    @relation(fields: [id], references: [id])
 }
