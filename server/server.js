@@ -8,8 +8,6 @@ const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
 
-const cache = {};
-
 const { PrismaClient } = require('@prisma/client');
 
 const PORT = process.env.PORT || '5000';
@@ -143,53 +141,39 @@ app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
 	}
 });
 
-app.post('/createurluser', async (req, res) => {
-	const { originalUrl, userId, email } = req.body;
-
-	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
-		.toString(16)
-		.substring(1);
-	console.log(randomId, originalUrl);
+app.get('/userurls:userId', async (req, res) => {
+	const { userId } = req.params;
 	try {
-		await prisma.urls.create({
-			data: {
-				hash: randomId,
-				originalUrl,
-				updatedAt: new Date(),
-				author: { connect: { email } },
-			},
-		});
-		//get current user urles by id
-		// const user = await prisma.users
-		// 	.findUnique({
-		// 		where: {
-		// 			id: parseInt(userId),
-		// 		},
-		// 	})
-		// 	.urls({});
-		return res.status(201).json({ msg: 'Successfully created url', user });
+		const urls = await prisma.users
+			.findUnique({
+				where: {
+					id: parseInt(userId),
+				},
+			})
+			.urls({});
+		return res.status(200).send(urls);
 	} catch (error) {
-		console.log(error);
 		return res.status(400).json({ error });
 	}
 });
 
 app.post('/createurl', async (req, res) => {
-	const { originalUrl } = req.body;
+	const { originalUrl, email } = req.body;
 
 	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
 		.toString(16)
 		.substring(1);
 	console.log(randomId, originalUrl);
 	try {
-		await prisma.urls.create({
+		const newUrl = await prisma.urls.create({
 			data: {
 				hash: randomId,
 				originalUrl,
 				updatedAt: new Date(),
+				...(email && { author: { connect: { email } } }),
 			},
 		});
-		return res.status(201).json({ msg: 'Successfully created url' });
+		return res.status(201).json({ msg: 'Successfully created url', newUrl });
 	} catch (error) {
 		console.log(error);
 		return res.status(400).json({ error });
