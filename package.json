@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.1.1",
     "@headlessui/react": "^1.0.0",
     "@heroicons/react": "^1.0.1",
     "@material-ui/core": "^4.11.3",
@@ -12,8 +11,6 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
-    "postcss-import": "^14.0.1",
-    "postcss-nested": "^5.0.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -23,10 +20,10 @@
   },
   "scripts": {
     "dev-server": "react-scripts start && (cd server && yarn dev)",
-    "dev": "yarn watch:css && react-scripts start",
+    "dev": "react-scripts start",
     "start": "cd server && yarn start",
-    "start-build": "yarn watch:css && yarn run build && (cd server && yarn start)",
-    "build": "yarn watch:css && react-scripts build && (cd server && yarn install)",
+    "start-build": "yarn run build && (cd server && yarn start)",
+    "build": "react-scripts build && (cd server && yarn install)",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
@@ -50,11 +47,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@tailwindcss/postcss7-compat": "^2.1.0",
-    "autoprefixer": "^10.2.5",
-    "postcss": "^7.0.35",
-    "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.1.1"
-  }
+  "devDependencies": {}
 }

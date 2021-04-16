@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import Header from './components/header/Header';
 import Mainpage from './pages/main/Mainpage';
 import './app.styles.css';
-import './assets/main.css';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useUserContext } from './context/user.context';
