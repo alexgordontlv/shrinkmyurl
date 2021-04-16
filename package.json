@@ -11,6 +11,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "postcss": "^8.2.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -20,11 +21,13 @@
   },
   "scripts": {
     "dev-server": "react-scripts start && (cd server && yarn dev)",
-    "dev": "react-scripts start",
+    "dev": "yarn run watch:css && react-scripts start",
     "start": "cd server && yarn start",
     "start-build": "yarn run build && (cd server && yarn start)",
-    "build": "react-scripts build && (cd server && yarn install)",
+    "build": "yarn build:css && react-scripts build && (cd server && yarn install)",
     "test": "react-scripts test",
+    "build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
+    "watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,5 +48,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "autoprefixer": "^9.0.0",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.1"
+  }
 }
