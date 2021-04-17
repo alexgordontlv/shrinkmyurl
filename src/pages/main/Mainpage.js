@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 
 import './mainpage.styles.css';
 import Login from '../login/Login';
-import MainBody from '../../components/mainbody/MainBody';
+import MainBody from '../mainbody/MainBody';
 import Register from '../register/Register';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../../components/privateroute/PrivateRoute';
