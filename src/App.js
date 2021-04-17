@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Header from './components/header/Header';
+import Header from './components/header/Header2';
 import Mainpage from './pages/main/Mainpage';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useUserContext } from './context/user.context';
