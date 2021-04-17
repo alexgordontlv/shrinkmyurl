@@ -71,9 +71,9 @@ const MainBody = () => {
 					<div>
 						<button
 							type='submit'
-							className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
+							className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 '>
 							<span className='absolute left-0 inset-y-0 flex items-center pl-3'>
-								<LockClosedIcon className='h-5 w-5 text-black group-hover:text-white' aria-hidden='true' />
+								<LockClosedIcon className='h-5 w-5 text-white group-hover:text-white' aria-hidden='true' />
 							</span>
 							Sign in this is nice font!
 						</button>
