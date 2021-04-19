@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 import axios from '../../utilities/axios/axios';
+
 const LinkForm = () => {
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const [readonly, setReadonly] = useState(false);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (!link) {
+			return;
+		}
+
 		setFetching(true);
 		try {
 			const res = await axios.post('/createurl', {
