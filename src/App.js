@@ -3,7 +3,7 @@ import Header from './components/header/Header2';
 import Mainpage from './pages/main/Mainpage';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useUserContext } from './context/user.context';
-
+import './app.styles.css';
 function App() {
 	const context = useUserContext();
 	useEffect(() => {
@@ -16,7 +16,7 @@ function App() {
 
 	return (
 		<Router>
-			<div className='app'>
+			<div className='app '>
 				<Header />
 				<Mainpage />
 			</div>

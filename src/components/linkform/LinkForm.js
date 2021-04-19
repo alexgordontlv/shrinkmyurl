@@ -20,10 +20,8 @@ const LinkForm = () => {
 	};
 
 	return (
-		<div className='shadow-md rounded to  md:w-7/12 max-w-3xl	 bg-gray-50 border-solid  p-6 my-2'>
-			<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Enter a link to shrink:</h2>
-
-			<h3 className='text-grey-dark text-sm font-medium font-sans leading-normal'>Check our latest offer! 50% ON ALL COMPONENTS!</h3>
+		<div className='shadow-md rounded to  md:w-6/12 max-w-3xl	 bg-gray-50 border-solid  p-6 my-2'>
+			<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Shrink My Link:</h2>
 			<form onSubmit={handleSubmit}>
 				<input
 					readOnly={readonly}
