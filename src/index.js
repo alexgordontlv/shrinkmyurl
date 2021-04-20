@@ -4,11 +4,14 @@ import './assets/main.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './context/user.context';
+import { ModalProvider } from './context/modal.context';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<UserProvider>
-			<App />
+			<ModalProvider>
+				<App />
+			</ModalProvider>
 		</UserProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
