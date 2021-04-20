@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import axios from '../../utilities/axios/axios';
+import { useModalContext } from '../../context/modal.context';
+
 const LinkForm = () => {
+	const { setOpenModal } = useModalContext();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const [readonly, setReadonly] = useState(false);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		if (!link) {
+			setOpenModal('We cannot shrink an empty link, Please provide a link');
+
+			return;
+		}
+
 		setFetching(true);
 		try {
 			const res = await axios.post('/createurl', {
