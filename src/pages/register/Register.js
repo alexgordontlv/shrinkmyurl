@@ -80,15 +80,9 @@ const Register = () => {
 					required
 					onChange={(e) => setValidatePassword(e.target.value)}
 				/>
-
-				<button
-					variant='outlined'
-					onClick={handleSubmit}
-					type='submit'
-					color='primary'
-					className='bg-black text-white px-3 py-3 rounded-md text-md font-normal mt-3 w-full hover:bg-gray-800'>
+				<Button variant='outlined' onClick={handleSubmit} type='submit' color='primary' className={classes.button}>
 					Register
-				</button>
+				</Button>
 			</form>
 		</div>
 	);

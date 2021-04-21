@@ -1,17 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './assets/main.css';
+import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { UserProvider } from './context/user.context';
-import { ModalProvider } from './context/modal.context';
 
 ReactDOM.render(
 	<React.StrictMode>
 		<UserProvider>
-			<ModalProvider>
-				<App />
-			</ModalProvider>
+			<App />
 		</UserProvider>
 	</React.StrictMode>,
 	document.getElementById('root')

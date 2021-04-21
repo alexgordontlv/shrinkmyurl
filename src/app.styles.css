@@ -1,3 +1,4 @@
-body {
-	background-color: #c9e8f3;
+.app {
+  width: 90vw;
+  max-width: 1200px;
 }

@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useReducer } from 'react';
-import { contextReducer, modalReducer } from './user.reducer';
+import { contextReducer } from './user.reducer';
 
 const UserContext = createContext();
 
 export const useUserContext = () => {
 	return useContext(UserContext);
 };
-
 const initialState = {
 	currentUser: null,
 	isAdmin: false,

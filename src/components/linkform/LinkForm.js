@@ -6,12 +6,10 @@ const LinkForm = () => {
 	const { setOpenModal } = useModalContext();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
-	const [readonly, setReadonly] = useState(false);
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (!link) {
 			setOpenModal('We cannot shrink an empty link, Please provide a link');
-
 			return;
 		}
 
@@ -21,7 +19,6 @@ const LinkForm = () => {
 				originalUrl: link,
 			});
 			setLink(`https://www.shrinkmy.site/${res.data.newUrl.hash}`);
-			setReadonly(true);
 		} catch (error) {
 			console.log(error.message);
 		}
@@ -33,7 +30,6 @@ const LinkForm = () => {
 			<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Shrink My Link:</h2>
 			<form onSubmit={handleSubmit}>
 				<input
-					readOnly={readonly}
 					value={link}
 					type='text'
 					onChange={(e) => setLink(e.target.value)}

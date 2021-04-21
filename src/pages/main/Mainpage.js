@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 
+import './mainpage.styles.css';
 import Login from '../login/Login';
-import MainBody from '../mainbody/MainBody';
 import Register from '../register/Register';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../../components/privateroute/PrivateRoute';
@@ -19,13 +19,12 @@ const Mainpage = () => {
 		<div className='main'>
 			<Switch>
 				<Suspense fallback={<Spinner />}>
-					<Route exact path='/' component={MainBody} />
-					<Route path='/login' render={(props) => (!currentUser ? <Login /> : <Redirect to='/' />)} />
-					<Route path='/register'>
+					<Route exact path='/login' render={(props) => (!currentUser ? <Login /> : <Redirect to='/' />)} />
+					<Route exact path='/register'>
 						<Register />
 					</Route>
-					<PrivateRoute path='/admin-panel' admin component={AdminPanel} />
-					<PrivateRoute path='/profile' component={UserCard} />
+					<PrivateRoute exact path='/admin-panel' admin component={AdminPanel} />
+					<PrivateRoute exact path='/profile' component={UserCard} />
 				</Suspense>
 			</Switch>
 		</div>
