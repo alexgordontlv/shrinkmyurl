@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../../context/user.context';
-import './login.styles.css';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
-
 
 const Login = () => {
 	const context = useUserContext();
@@ -36,7 +34,7 @@ const Login = () => {
 
 	return (
 		<div className='flex text-center justify-center mt-10'>
-			<div className='shadow-md rounded to  md:w-6/12 max-w-3xl	 bg-gray-50 border-solid  p-6 my-2'>
+			<div className='shadow-md rounded to  w-10/12 md:max-w-xl	 bg-gray-50 border-solid  p-6 my-2'>
 				<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Sign In</h2>
 				<form onSubmit={handleSubmit}>
 					<input

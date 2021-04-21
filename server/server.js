@@ -79,12 +79,11 @@ app.post('/register', async (req, res) => {
 });
 
 app.post('/add-user', tokenAuth, adminAuth, async (req, res) => {
-	const { name, email, role } = req.body;
+	const { email, role } = req.body;
 	try {
 		const hashedPassword = await bcrypt.hash('123456', 10);
 		const result = await prisma.users.create({
 			data: {
-				name: name,
 				email,
 				password: hashedPassword,
 				role,
