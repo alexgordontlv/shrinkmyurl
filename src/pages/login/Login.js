@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../../context/user.context';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import './login.styles.css';
-import { useStyles } from './material.styles';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
-import Spinner from '../../components/spinner/Spinner';
+
 
 const Login = () => {
 	const context = useUserContext();
 	let history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
 	const [loading, setLoading] = useState(false);
-	const classes = useStyles();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -40,49 +35,28 @@ const Login = () => {
 	};
 
 	return (
-		<div className='login'>
-			<h3>Sign In</h3>
-			{loading ? (
-				<Spinner />
-			) : (
-				<form className='form' noValidate>
-					<TextField
-						className={classes.textfield}
-						label='Email'
-						name='userEmail'
-						type='email'
-						onChange={(e) => setEmail(e.target.value)}
+		<div className='flex text-center justify-center mt-10'>
+			<div className='shadow-md rounded to  md:w-6/12 max-w-3xl	 bg-gray-50 border-solid  p-6 my-2'>
+				<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Sign In</h2>
+				<form onSubmit={handleSubmit}>
+					<input
 						value={email}
-						variant='outlined'
-						required
+						type='email'
+						className={`mt-4 border-solid border w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+						placeholder='Email'
+						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<TextField
-						className={classes.textfield}
-						label='Password'
-						name='userPassword'
+					<input
 						value={password}
 						type='password'
-						variant='outlined'
-						required
+						className={`mt-4 border-solid border w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+						placeholder='Password'
 						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<Button variant='outlined' onClick={handleSubmit} type='submit' color='primary' className={classes.button}>
-						Sign In
-					</Button>
+					<button type='submit' className={` bg-black text-white px-3 py-2 rounded w-full mt-4 hover:bg-gray-800`}>
+						{loading ? <p className='animate-pulse'>Please wait... </p> : 'Sign In'}
+					</button>
 				</form>
-			)}
-			<div className='text-2xl hover:bg-light-blue-400 flex w-full'>
-				lsls
-				<div className='border border-light-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto'>
-					<div className='animate-pulse flex space-x-4'>
-						<div className='rounded-full bg-light-blue-400 h-12 w-12'></div>
-						<div className='flex-1 space-y-4 py-1'>
-							<div className='space-y-2'>
-								<div className='h-4 bg-light-blue-400 rounded w-5/6'></div>
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	);
