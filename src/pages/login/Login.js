@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
 import { useUserContext } from '../../context/user.context';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import './login.styles.css';
-import { useStyles } from './material.styles';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
-import Spinner from '../../components/spinner/Spinner';
-//fetching ? <p className='animate-pulse'>Please wait... </p> : 'Shrink it'
+
+
 const Login = () => {
 	const context = useUserContext();
 	let history = useHistory();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
 	const [loading, setLoading] = useState(false);
-	const classes = useStyles();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -59,7 +54,7 @@ const Login = () => {
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<button type='submit' className={` bg-black text-white px-3 py-2 rounded w-full mt-4 hover:bg-gray-800`}>
-						Button
+						{loading ? <p className='animate-pulse'>Please wait... </p> : 'Sign In'}
 					</button>
 				</form>
 			</div>
