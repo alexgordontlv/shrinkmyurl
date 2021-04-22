@@ -34,7 +34,7 @@ const LinkForm = () => {
 					type='text'
 					onChange={(e) => setLink(e.target.value)}
 					className={`mt-4 border-solid border w-full rounded px-3 py-2`}
-					placeholder='Email'
+					placeholder='Enter Link Here'
 				/>
 
 				<button type='submit' className={` bg-black text-white px-3 py-2 rounded w-full mt-4 hover:bg-gray-800`}>
