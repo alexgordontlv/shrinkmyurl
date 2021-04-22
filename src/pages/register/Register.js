@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import './register.styles.css';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
 import { useModalContext } from '../../context/modal.context';

@@ -17,7 +17,7 @@ function App() {
 
 	return (
 		<Router>
-			<div className='app '>
+			<div className='app'>
 				<Modal />
 				<Header />
 				<Mainpage />

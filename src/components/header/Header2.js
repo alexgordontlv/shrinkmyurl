@@ -45,10 +45,12 @@ export default function Example() {
 							</div>
 
 							<div className='flex-1 flex items-center justify-center sm:items-stretch'>
-								<div className='flex-shrink-0 flex items-center justify-center'>
-									<p className='text-2xl font-light'>SHRINKMY</p>
-									<p className='text-white text-2xl font-light'>.SITE</p>
-								</div>
+								<Link to='/'>
+									<div className='flex-shrink-0 flex items-center justify-center'>
+										<p className='text-2xl font-light'>SHRINKMY</p>
+										<p className='text-white text-2xl font-light'>.SITE</p>
+									</div>
+								</Link>
 								<div className='hidden sm:block sm:ml-6 items-center justify-center'>
 									<div className='flex space-x-4'>
 										{filteredNavigation.map((item) => (
