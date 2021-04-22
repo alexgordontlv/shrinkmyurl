@@ -45,13 +45,6 @@ const Header = ({ history }) => {
 		setAnchorEl(null);
 	};
 
-	const handleLogOut = () => {
-		setCurrentUser(null);
-		setAnchorEl(null);
-		localStorage.clear();
-		history.push('/login');
-	};
-
 	return (
 		<div className='header'>
 			<div className='header__left'>
