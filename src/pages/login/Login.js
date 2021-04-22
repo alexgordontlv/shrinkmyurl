@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useUserContext } from '../../context/user.context';
 import axios from '../../utilities/axios/axios';
 import { useHistory } from 'react-router-dom';
+import { useModalContext } from '../../context/modal.context';
 
 const Login = () => {
 	const context = useUserContext();
@@ -9,12 +10,16 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
+	const { setOpenModal } = useModalContext();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		if (!email || !password) {
+			setOpenModal('Please fill the form currectly');
+			return;
+		}
 		setLoading(true);
-		console.log(axios.defaults);
-		console.log(process.env.baseURL);
+		console.log(axios.defaults.baseURL);
 		try {
 			const response = await axios.post('/login', {
 				email,

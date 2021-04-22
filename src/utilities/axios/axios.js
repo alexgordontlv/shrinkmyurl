@@ -1,6 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-	baseURL: 'https://simple-portal.herokuapp.com',
-	//baseURL: 'http://localhost:5000',
+	baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:5000' : 'https://simple-portal.herokuapp.com',
 });
