@@ -26,21 +26,23 @@ const LinkForm = () => {
 	};
 
 	return (
-		<div className='shadow-md rounded to  w-10/12 md:max-w-xl	 bg-gray-50 border-solid  p-6 my-2'>
-			<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Shrink My Link:</h2>
-			<form onSubmit={handleSubmit}>
-				<input
-					value={link}
-					type='text'
-					onChange={(e) => setLink(e.target.value)}
-					className={`mt-4 border-solid border w-full rounded px-3 py-2`}
-					placeholder='Enter Link Here'
-				/>
+		<div className='flex text-center justify-center mt-10'>
+			<div className='shadow-md rounded to  w-10/12 md:max-w-xl	 bg-gray-50 border-solid  p-6 my-2'>
+				<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Shrink My Link:</h2>
+				<form onSubmit={handleSubmit}>
+					<input
+						value={link}
+						type='text'
+						onChange={(e) => setLink(e.target.value)}
+						className={`mt-4 border-solid border w-full rounded px-3 py-2`}
+						placeholder='Enter Link Here'
+					/>
 
-				<button type='submit' className={` bg-black text-white px-3 py-2 rounded w-full mt-4 hover:bg-gray-800`}>
-					{fetching ? <p className='animate-pulse'>Please wait... </p> : 'Shrink it'}
-				</button>
-			</form>
+					<button type='submit' className={` bg-black text-white px-3 py-2 rounded w-full mt-4 hover:bg-gray-800`}>
+						{fetching ? <p className='animate-pulse'>Please wait... </p> : 'Shrink it'}
+					</button>
+				</form>
+			</div>
 		</div>
 	);
 };

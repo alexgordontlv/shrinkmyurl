@@ -3,9 +3,16 @@ import { LockClosedIcon } from '@heroicons/react/solid';
 import LinkForm from '../../components/linkform/LinkForm';
 const MainBody = () => {
 	return (
-		<div className='min-h-screen flex-col items-center justify-center  py-12 px-4 sm:px-6 lg:px-8'>
-			<div></div>
-			<div className='flex justify-center text-center'>
+		<div className='grid grid-rows-3 grid-flow-col gap-4'>
+			<div className='row-span-3'>
+				<LinkForm />
+			</div>
+			<div className='row-span-2'>
+				<LinkForm />
+			</div>
+			<div className='row-span-2 col-span-2'>
+				<LinkForm />
+				<LinkForm />
 				<LinkForm />
 			</div>
 		</div>
