@@ -27,7 +27,7 @@ const LinkForm = () => {
 
 	return (
 		<div className='flex text-center justify-center mt-10'>
-			<div className='shadow-md rounded to  w-10/12 md:max-w-xl	 bg-gray-50 border-solid  p-6 my-2'>
+			<div className='shadow-md rounded to  w-11/12 md:max-w-xl	 bg-gray-50 border-solid  p-6 my-2'>
 				<h2 className=' text-center text-3xl font-extrabold text-gray-900'>Shrink My Link:</h2>
 				<form onSubmit={handleSubmit}>
 					<input
