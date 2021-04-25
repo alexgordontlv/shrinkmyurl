@@ -1,7 +1,7 @@
 import React from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import LinkForm from '../../components/linkform/LinkForm';
-import { ReactComponent as DataLogo } from '../../assets/data.svg';
+import { ReactComponent as DataLogo } from '../../assets/data2.svg';
 
 const MainBody = () => {
 	return (
@@ -17,7 +17,9 @@ const MainBody = () => {
 					<div className='flex-col '>
 						<h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
 							<span className='block'>Get metrics for every link!</span>
-							<span className='block text-indigo-600'>Start your free membership today.</span>
+							<span className='block' style={{ color: '#15bbca' }}>
+								Start your free membership today.
+							</span>
 						</h2>
 						<div className='flex justify-center items-center'>
 							<DataLogo className='w-96 h-96' />
