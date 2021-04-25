@@ -34,7 +34,7 @@ const LinkForm = () => {
 						value={link}
 						type='text'
 						onChange={(e) => setLink(e.target.value)}
-						className={`mt-4 border-solid border w-full rounded px-3 py-2`}
+						className={`mt-4 border-solid border w-full rounded px-3 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
 						placeholder='Enter Link Here'
 					/>
 
