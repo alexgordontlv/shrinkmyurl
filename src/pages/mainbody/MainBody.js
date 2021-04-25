@@ -13,7 +13,8 @@ const MainBody = () => {
 				<div className='row-span-4 col-span-2 flex justify-center items-center '>
 					<Metrics />
 				</div>
-				<div className='flex items-center justify-center row-span-2 col-span-2 '>
+
+				<div className='items-center justify-center row-span-2 col-span-2 '>
 					<Footer />
 				</div>
 			</div>
