@@ -1,12 +1,21 @@
 import React from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
 import LinkForm from '../../components/linkform/LinkForm';
+import Metrics from '../../components/metrics/Metrics';
+import Footer from '../../components/footer/Footer';
 const MainBody = () => {
 	return (
-		<div className='min-h-screen flex-col items-center justify-center  py-12 px-4 sm:px-6 lg:px-8'>
-			<div></div>
-			<div className='flex justify-center text-center'>
-				<LinkForm />
+		<div className='flex  justify-center'>
+			<div className='grid grid-cols-1 max-w-5xl md:grid-cols-4 md:grid-rows-4 gap-2 '>
+				<div className='row-span-2  col-span-2 '>
+					<LinkForm className='' />
+				</div>
+				<div className='row-span-4 col-span-2 flex justify-center items-center '>
+					<Metrics />
+				</div>
+				<div className='flex items-center justify-center row-span-2 col-span-2 '>
+					<Footer />
+				</div>
 			</div>
 		</div>
 	);
