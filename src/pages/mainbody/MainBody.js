@@ -1,8 +1,8 @@
 import React from 'react';
-import { LockClosedIcon } from '@heroicons/react/solid';
 import LinkForm from '../../components/linkform/LinkForm';
 import Metrics from '../../components/metrics/Metrics';
 import Footer from '../../components/footer/Footer';
+
 const MainBody = () => {
 	return (
 		<div className='flex  justify-center'>
