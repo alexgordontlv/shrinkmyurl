@@ -12,6 +12,8 @@ const UserCard = React.lazy(() => import('../../components/usercard/UserCard'));
 const AdminPanel = React.lazy(() => import('../admin/AdminPanel'));
 
 const Mainpage = () => {
+	console.log('mainpage');
+
 	const {
 		state: { currentUser },
 	} = useUserContext();

@@ -4,6 +4,8 @@ import { ReactComponent as DataLogo } from '../../assets/data2.svg';
 import { Link } from 'react-router-dom';
 
 const Metrics = () => {
+	console.log('metrics');
+
 	return (
 		<div className='flex-col mt-10'>
 			<h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>

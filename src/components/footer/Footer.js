@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useModalContext } from '../../context/modal.context';
 const Footer = () => {
+	console.log('footer');
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const { setOpenModal } = useModalContext();
@@ -53,4 +54,4 @@ const Footer = () => {
 	);
 };
 
-export default Footer;
+export default React.memo(Footer);

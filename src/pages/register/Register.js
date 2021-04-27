@@ -27,10 +27,12 @@ const Register = () => {
 				email,
 				password,
 			});
-			history.push('/login');
+			setLoading(false);
+			respone && history.push('/login');
 		} catch (error) {
 			console.log('ERROR:', error);
 		}
+		setLoading(false);
 		setPassword('');
 		setEmail('');
 		setValidatePassword('');

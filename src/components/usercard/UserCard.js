@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Avatar, CardActionArea, CardActions, Button, Typography } from '@material-ui/core/';
+import { Card, CardContent, Avatar, CardActionArea, CardActions, Typography } from '@material-ui/core/';
 import FormDialog from '../formdialog/FormDialog';
 import DeleteDialog from '../deletedialog/DeleteDialog';
 
