@@ -1,17 +1,19 @@
 import React, { Suspense } from 'react';
 
-import Login from '../login/Login';
-import MainBody from '../mainbody/MainBody';
-import Register from '../register/Register';
+import { useUserContext } from '../../context/user.context';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import PrivateRoute from '../../components/privateroute/PrivateRoute';
-import UserCard from '../../components/usercard/UserCard';
 import Spinner from '../../components/spinner/Spinner';
-import { useUserContext } from '../../context/user.context';
 
+const Login = React.lazy(() => import('../login/Login'));
+const MainBody = React.lazy(() => import('../mainbody/MainBody'));
+const Register = React.lazy(() => import('../register/Register'));
+const UserCard = React.lazy(() => import('../../components/usercard/UserCard'));
 const AdminPanel = React.lazy(() => import('../admin/AdminPanel'));
 
 const Mainpage = () => {
+	console.log('mainpage');
+
 	const {
 		state: { currentUser },
 	} = useUserContext();

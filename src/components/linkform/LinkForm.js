@@ -3,6 +3,7 @@ import axios from '../../utilities/axios/axios';
 import { useModalContext } from '../../context/modal.context';
 
 const LinkForm = () => {
+	console.log('linkform');
 	const { setOpenModal } = useModalContext();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
@@ -47,4 +48,4 @@ const LinkForm = () => {
 	);
 };
 
-export default LinkForm;
+export default React.memo(LinkForm);

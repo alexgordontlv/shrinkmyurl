@@ -7,12 +7,16 @@ import Modal from './components/modal/Modal';
 import './app.styles.css';
 function App() {
 	const context = useUserContext();
-	useEffect(() => {
+
+	const setUser = () => {
 		const loggedInUser = localStorage.getItem('currentUser');
 		if (loggedInUser) {
 			const foundUser = JSON.parse(loggedInUser);
 			context.setCurrentUser(foundUser);
 		}
+	};
+	useEffect(() => {
+		setUser();
 	}, []);
 
 	return (

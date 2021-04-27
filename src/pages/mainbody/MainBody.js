@@ -1,9 +1,11 @@
 import React from 'react';
-import { LockClosedIcon } from '@heroicons/react/solid';
-import LinkForm from '../../components/linkform/LinkForm';
-import Metrics from '../../components/metrics/Metrics';
-import Footer from '../../components/footer/Footer';
+const LinkForm = React.lazy(() => import('../../components/linkform/LinkForm'));
+const Metrics = React.lazy(() => import('../../components/metrics/Metrics'));
+const Footer = React.lazy(() => import('../../components/footer/Footer'));
+
 const MainBody = () => {
+	console.log('mainbody');
+
 	return (
 		<div className='flex  justify-center'>
 			<div className='grid grid-cols-1 max-w-5xl md:grid-cols-4 md:grid-rows-4 gap-2 '>
@@ -22,4 +24,4 @@ const MainBody = () => {
 	);
 };
 
-export default MainBody;
+export default React.memo(MainBody);

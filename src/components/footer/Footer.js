@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useModalContext } from '../../context/modal.context';
 const Footer = () => {
+	console.log('footer');
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const { setOpenModal } = useModalContext();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		if (!link) {
+		if (!link || !link.includes('@')) {
 			setOpenModal('Please provide a valid email');
 			return;
 		}
-		setFetching(false);
+		setFetching(true);
 	};
 
 	return (
@@ -29,7 +30,7 @@ const Footer = () => {
 						<button type='submit' className={` bg-black text-white px-3 py-2 rounded   hover:bg-gray-800 ml-3`}>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
-								className='h-6 w-6'
+								className={`h-6 w-6 ${fetching && 'animate-pulse'}`}
 								fill='none'
 								viewBox='0 0 24 24'
 								stroke='currentColor'
@@ -53,4 +54,4 @@ const Footer = () => {
 	);
 };
 
-export default Footer;
+export default React.memo(Footer);
