@@ -10,6 +10,7 @@ const MainBody = React.lazy(() => import('../mainbody/MainBody'));
 const Register = React.lazy(() => import('../register/Register'));
 const UserCard = React.lazy(() => import('../../components/usercard/UserCard'));
 const AdminPanel = React.lazy(() => import('../admin/AdminPanel'));
+const SystemDesign = React.lazy(() => import('../systemdesign/SystemDesign'));
 
 const Mainpage = () => {
 	console.log('mainpage');
@@ -23,9 +24,8 @@ const Mainpage = () => {
 				<Suspense fallback={<Spinner />}>
 					<Route exact path='/' component={MainBody} />
 					<Route path='/login' render={(props) => (!currentUser ? <Login /> : <Redirect to='/' />)} />
-					<Route path='/register'>
-						<Register />
-					</Route>
+					<Route path='/register' component={Register} />
+					<Route path='/system' component={SystemDesign} />
 					<PrivateRoute path='/admin-panel' admin component={AdminPanel} />
 					<PrivateRoute path='/profile' component={UserCard} />
 				</Suspense>
