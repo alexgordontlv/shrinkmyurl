@@ -46,7 +46,7 @@ const Footer = () => {
 						</button>
 					</form>
 				</div>
-				<div className='flex text-center justify-evenly w-full mt-10'>
+				<div className='flex items-center justify-evenly w-full mt-10'>
 					<p>LinkedIn</p> .<p>FaceBook</p> .<p>Instragram</p>
 				</div>
 			</div>

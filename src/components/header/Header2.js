@@ -7,7 +7,7 @@ const navigation = [
 	{ name: 'About', href: '/about', current: false },
 	{ name: 'Features', href: '/features', current: false },
 	{ name: 'Pricing', href: '/pricing', current: false },
-	{ name: 'System Design', href: '/system', current: false },
+	{ name: 'Dashboard', href: '/dashboard', current: false },
 ];
 
 function classNames(...classes) {
@@ -21,7 +21,11 @@ export default function Example() {
 		state: { currentUser, isAdmin },
 		setCurrentUser,
 	} = useUserContext();
-	let filteredNavigation = navigation;
+	let filteredNavigation = navigation.filter((nav) => {
+		if (nav.name !== 'Dashboard') return nav;
+		if (nav.name === 'Dashboard' && currentUser) return nav;
+	});
+	console.log(filteredNavigation);
 	useEffect(() => {
 		console.log(
 			history.listen((location) => {

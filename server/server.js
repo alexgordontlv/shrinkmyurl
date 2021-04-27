@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
-
 const { PrismaClient } = require('@prisma/client');
 
 const PORT = process.env.PORT || '5000';
@@ -45,7 +44,6 @@ app.post('/login', async (req, res) => {
 				user: {
 					id: user.id,
 					role: user.role,
-					name: user.name,
 					email: user.email,
 					token: accessToken,
 				},
@@ -78,33 +76,14 @@ app.post('/register', async (req, res) => {
 	}
 });
 
-app.post('/add-user', tokenAuth, adminAuth, async (req, res) => {
-	const { email, role } = req.body;
-	try {
-		const hashedPassword = await bcrypt.hash('123456', 10);
-		const result = await prisma.users.create({
-			data: {
-				email,
-				password: hashedPassword,
-				role,
-			},
-		});
-		console.log(result);
-		res.status(201).json({ msg: 'Successfully added user' });
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Could Not Write To DB' });
-	}
-});
-
-app.put('/update', tokenAuth, adminAuth, async (req, res) => {
-	const { name, email, id, role } = req.body;
+app.put('/update:id', tokenAuth, adminAuth, async (req, res) => {
+	const { name, email, role } = req.body;
 	console.log(req.body);
 
 	try {
 		const updatedUser = await prisma.users.update({
 			where: {
-				id: parseInt(id),
+				id: parseInt(req.params.id),
 			},
 			data: {
 				name: name,
@@ -124,9 +103,8 @@ app.get('/users', tokenAuth, adminAuth, async (req, res) => {
 	res.send(users);
 });
 
-app.delete('/delete', tokenAuth, adminAuth, async (req, res) => {
-	const { id } = req.body;
-	console.log(req.user);
+app.delete('/delete:id', tokenAuth, adminAuth, async (req, res) => {
+	const { id } = req.params;
 	try {
 		const deletedUser = await prisma.users.delete({
 			where: {
@@ -158,7 +136,6 @@ app.get('/userurls:userId', async (req, res) => {
 
 app.post('/createurl', async (req, res) => {
 	const { originalUrl, email } = req.body;
-
 	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
 		.toString(16)
 		.substring(1);
@@ -182,7 +159,6 @@ app.post('/createurl', async (req, res) => {
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
 app.use(async (req, res, next) => {
-	console.log(req.path);
 	try {
 		const hashedUrl = await prisma.urls.update({
 			where: {
