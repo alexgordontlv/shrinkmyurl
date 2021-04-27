@@ -41,7 +41,7 @@ export default function Example() {
 			{({ open }) => (
 				<>
 					<div className=' max-w-5xl mx-auto  '>
-						<div className='relative flex items-center justify-between h-16 '>
+						<div className='relative flex items-center justify-between h-16 w-full'>
 							<div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
 								{/* Mobile menu button*/}
 								<Disclosure.Button className='inline-flex items-center justify-center p-2 rounded-md bg-black text-white hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset'>
@@ -52,7 +52,7 @@ export default function Example() {
 
 							<div className='flex-1 flex items-center justify-center md:justify-between sm:items-stretch '>
 								<Link to='/'>
-									<div className='flex-shrink-0 flex items-center justify-center'>
+									<div className='flex-shrink-0 flex items-center justify-center mr-10 md:mr-0'>
 										<p className='text-2xl font-light'>SHRINKMY</p>
 										<p className='text-white text-2xl font-light'>.SITE</p>
 									</div>
@@ -74,9 +74,9 @@ export default function Example() {
 									</div>
 								</div>
 
-								{currentUser ? (
-									<div className=' absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
-										{/* Profile dropdown */}
+								<div className=' absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0'>
+									{/* Profile dropdown */}
+									{currentUser ? (
 										<Menu as='div' className='ml-3 relative'>
 											{({ open }) => (
 												<>
@@ -150,23 +150,23 @@ export default function Example() {
 												</>
 											)}
 										</Menu>
-									</div>
-								) : (
-									<div className='flex justify-center items-center'>
-										<Link to='/login'>
-											<button type='submit' className={`mr-3  text-black px-3 py-2 rounded w-full  hover:underline focus:outline-none`}>
-												Login
-											</button>
-										</Link>
-										<Link to='/register'>
-											<button
-												type='submit'
-												className={` bg-black text-white px-3 py-2 rounded w-full  hover:bg-gray-800 focus:outline-none`}>
-												Register
-											</button>
-										</Link>
-									</div>
-								)}
+									) : (
+										<div className='flex justify-end items-center'>
+											<Link to='/login'>
+												<button type='submit' className={`mr-3  text-black px-3 py-2 rounded w-full  hover:underline focus:outline-none`}>
+													Login
+												</button>
+											</Link>
+											<Link to='/register'>
+												<button
+													type='submit'
+													className={` bg-black text-white px-3 py-2 rounded w-full  hover:bg-gray-800 focus:outline-none`}>
+													Register
+												</button>
+											</Link>
+										</div>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
