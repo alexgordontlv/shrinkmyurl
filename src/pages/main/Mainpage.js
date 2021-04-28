@@ -25,7 +25,7 @@ const Mainpage = () => {
 					<Route exact path='/' component={MainBody} />
 					<Route path='/login' render={(props) => (!currentUser ? <Login /> : <Redirect to='/' />)} />
 					<Route path='/register' component={Register} />
-					<Route path='/system' component={SystemDesign} />
+					<Route path='/about' component={SystemDesign} />
 					<PrivateRoute path='/admin-panel' admin component={AdminPanel} />
 					<PrivateRoute path='/profile' component={UserCard} />
 				</Suspense>
