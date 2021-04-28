@@ -7,7 +7,7 @@ const Metrics = () => {
 	console.log('metrics');
 
 	return (
-		<div className='flex-col mt-10'>
+		<div className='flex-col mt-10 self-start'>
 			<h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
 				<span className='block'>Get metrics for every link!</span>
 				<span className='block' style={{ color: '#15bbca' }}>
@@ -17,7 +17,7 @@ const Metrics = () => {
 			<div className='flex justify-center items-center'>
 				<DataLogo className='w-96 h-96' />
 			</div>
-			<div className=' flex lg:flex-shrink-0 justify-center items-center'>
+			<div className=' flex lg:flex-shrink-0 justify-center items-center mt-24'>
 				<div className='inline-flex rounded-md shadow'>
 					<Link to='/register'>
 						<button className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800'>
