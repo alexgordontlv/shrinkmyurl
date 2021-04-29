@@ -18,7 +18,7 @@ const MainBody = () => {
 				<div className='row-span-1 col-span-1 md:col-span-2'>
 					<Example />
 				</div>
-				<div className='items-center justify-center row-span-1 col-span-1 md:col-span-4 '>
+				<div className='row-span-1 col-span-1 md:col-span-4 '>
 					<Footer />
 				</div>
 			</div>
