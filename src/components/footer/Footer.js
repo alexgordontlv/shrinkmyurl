@@ -18,7 +18,7 @@ const Footer = () => {
 	};
 
 	return (
-		<div className='flex justify-center mt-10'>
+		<div className='flex justify-center self-start'>
 			<div className='flex-col w-8/12'>
 				<div className=' '>
 					<form onSubmit={handleSubmit} className='flex items-center justify-center'>
