@@ -17,7 +17,7 @@ const Metrics = () => {
 			<div className='flex justify-center items-center'>
 				<DataLogo className='w-96 h-96' />
 			</div>
-			<div className=' flex lg:flex-shrink-0 justify-center items-center mt-24'>
+			<div className=' flex lg:flex-shrink-0 justify-center items-center mt-8'>
 				<div className='inline-flex rounded-md shadow'>
 					<Link to='/register'>
 						<button className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800'>
