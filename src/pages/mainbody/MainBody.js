@@ -4,8 +4,6 @@ const Metrics = React.lazy(() => import('../../components/metrics/Metrics'));
 const Footer = React.lazy(() => import('../../components/footer/Footer'));
 const Example = React.lazy(() => import('../../components/piechart/PieChart'));
 const MainBody = () => {
-	console.log('mainbody');
-
 	return (
 		<div className='flex  justify-center'>
 			<div className='grid grid-cols-1 max-w-5xl md:grid-cols-4 gap-2 '>

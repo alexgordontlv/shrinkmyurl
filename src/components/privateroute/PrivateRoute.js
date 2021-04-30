@@ -6,7 +6,6 @@ const PrivateRoute = ({ component: Component, admin, ...rest }) => {
 	const {
 		state: { currentUser, isAdmin },
 	} = useUserContext();
-	console.log(admin, currentUser);
 	return (
 		<Route
 			{...rest}

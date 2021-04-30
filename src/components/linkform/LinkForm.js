@@ -8,7 +8,6 @@ const LinkForm = () => {
 	const { setOpenModal } = useModalContext();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
-
 	const handleSubmit = async (e) => {
 		console.log(link);
 		e.preventDefault();

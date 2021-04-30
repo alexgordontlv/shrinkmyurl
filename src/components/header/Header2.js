@@ -25,7 +25,6 @@ export default function Example() {
 		if (nav.name !== 'Dashboard') return nav;
 		if (nav.name === 'Dashboard' && currentUser) return nav;
 	});
-	console.log(filteredNavigation);
 	useEffect(() => {
 		console.log(
 			history.listen((location) => {
