@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CustomInput = ({ value, type, onChange, placeholder, moreStyle }) => {
+const CustomInput = ({ value, type, onChange, placeholder, moreStyle, children }) => {
 	return (
 		<input
 			value={value}

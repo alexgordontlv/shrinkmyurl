@@ -3,7 +3,6 @@ import { useModalContext } from '../../context/modal.context';
 import CustomInput from '../custominput/CustomInput';
 
 const Footer = () => {
-	console.log('footer');
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const { setOpenModal } = useModalContext();

@@ -7,7 +7,6 @@ import Modal from './components/modal/Modal';
 import './app.styles.css';
 function App() {
 	const context = useUserContext();
-
 	const setUser = () => {
 		const loggedInUser = localStorage.getItem('currentUser');
 		if (loggedInUser) {

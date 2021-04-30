@@ -78,7 +78,7 @@ export default function Example() {
 					cy={200}
 					innerRadius={60}
 					outerRadius={80}
-					fill='#8884d8'
+					fill='#3f3d56'
 					dataKey='value'
 					onMouseEnter={onPieEnter}
 				/>

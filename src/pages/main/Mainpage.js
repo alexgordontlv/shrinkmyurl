@@ -13,8 +13,6 @@ const AdminPanel = React.lazy(() => import('../admin/AdminPanel'));
 const SystemDesign = React.lazy(() => import('../systemdesign/SystemDesign'));
 
 const Mainpage = () => {
-	console.log('mainpage');
-
 	const {
 		state: { currentUser },
 	} = useUserContext();
