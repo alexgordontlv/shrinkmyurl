@@ -63,8 +63,29 @@ const createUrl = async (req, res, next) => {
 	}
 };
 
+const getHashedUrl = async (req, res, next) => {
+	try {
+		const hashedUrl = await prisma.urls.update({
+			where: {
+				hash: req.path.substring(1),
+			},
+			data: {
+				viewCount: {
+					increment: 1,
+				},
+				updatedAt: new Date(),
+			},
+		});
+		if (hashedUrl) return res.redirect(hashedUrl.originalUrl);
+	} catch (error) {
+		console.log(error);
+	}
+	next();
+};
+
 module.exports = {
 	createUrl,
 	loginUser,
 	registerUser,
+	getHashedUrl,
 };

@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
 const { redisClient } = require('./utilities/utlities');
-const { createUrl, loginUser, registerUser } = require('./middlewares/prismaqueries');
+const { createUrl, loginUser, registerUser, getHashedUrl } = require('./middlewares/prismaqueries');
 const PORT = process.env.PORT || '5000';
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
@@ -114,25 +114,7 @@ app.post('/createurl', createUrl, (req, res) => {
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-app.use(async (req, res, next) => {
-	try {
-		const hashedUrl = await prisma.urls.update({
-			where: {
-				hash: req.path.substring(1),
-			},
-			data: {
-				viewCount: {
-					increment: 1,
-				},
-				updatedAt: new Date(),
-			},
-		});
-		console.log('page load', hashedUrl);
-		if (hashedUrl) res.redirect(hashedUrl.originalUrl);
-	} catch (error) {
-		console.log(error);
-	}
-
+app.use(getHashedUrl, (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
