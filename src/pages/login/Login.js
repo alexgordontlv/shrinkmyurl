@@ -21,15 +21,16 @@ const Login = () => {
 			return;
 		}
 		setLoading(true);
-		console.log(axios.defaults.baseURL);
 		try {
 			const response = await axios.post('/login', {
 				email,
 				password,
 			});
-			context.setCurrentUser(response.data.user);
-			localStorage.setItem('currentUser', JSON.stringify(response.data.user));
-			history.push('/');
+			if (response.data.user) {
+				context.setCurrentUser(response.data.user);
+				localStorage.setItem('currentUser', JSON.stringify(response.data.user));
+				history.push('/');
+			}
 		} catch (error) {
 			console.log('ERROR:', error);
 		}

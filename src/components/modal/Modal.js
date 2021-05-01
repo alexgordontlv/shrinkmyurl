@@ -5,7 +5,6 @@ import { useModalContext } from '../../context/modal.context';
 
 export default function Modal() {
 	const { state, setCloseModal } = useModalContext();
-	console.log(state);
 	const openModal = state.openModal;
 	const message = state.message;
 	const cancelButtonRef = useRef();
