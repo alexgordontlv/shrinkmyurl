@@ -46,7 +46,7 @@ app.post('/login', loginUser, async (req, res) => {
 	}
 });
 
-app.post('/register', registerUser, async (req, res) => {
+app.post('/register', registerUser, (req, res) => {
 	res.status(201).json({ msg: 'Successfully added user' });
 });
 
