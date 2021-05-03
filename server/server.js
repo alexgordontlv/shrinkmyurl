@@ -7,7 +7,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
-const { redisClient } = require('./utilities/utlities');
 const { createUrl, loginUser, getUserUrls, updateUser, registerUser, deleteUser, getHashedUrl, prisma } = require('./middlewares/prismaqueries');
 const PORT = process.env.PORT || '5000';
 
