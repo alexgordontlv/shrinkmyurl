@@ -7,95 +7,51 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
-const { PrismaClient } = require('@prisma/client');
-
+const { redisClient } = require('./utilities/utlities');
+const { createUrl, loginUser, getUserUrls, updateUser, registerUser, deleteUser, getHashedUrl, prisma } = require('./middlewares/prismaqueries');
 const PORT = process.env.PORT || '5000';
 
-const prisma = new PrismaClient();
 app.use(express.static(path.join(__dirname, '..', 'build')));
 app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
 
-app.post('/login', async (req, res) => {
-	const response = await prisma.users.findMany({
-		where: {
-			email: { equals: req.body.email },
-		},
-	});
-	const user = response[0];
-	if (!user) {
-		res.status(400).send('no such user');
-	}
+app.post('/login', loginUser, async (req, res) => {
 	try {
-		const hashResponse = await bcrypt.compare(req.body.password, user.password);
-		console.log(hashResponse);
+		const hashResponse = await bcrypt.compare(req.body.password, req.user.password);
 		if (hashResponse) {
 			const accessToken = await jwt.sign(
 				{
-					id: user.id,
+					id: req.user,
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
 					expiresIn: '20m',
 				}
 			);
+			console.log('req.user', req.user);
 			res.status(200).send({
 				user: {
-					id: user.id,
-					role: user.role,
-					email: user.email,
+					id: req.user,
+					role: req.user,
+					email: req.user,
 					token: accessToken,
 				},
 			});
 		} else {
-			res.status(401).send('Not Allowed');
+			res.status(401).send('Password is incorrect');
 		}
 	} catch (error) {
 		res.status(500).send();
 	}
 });
 
-app.post('/register', async (req, res) => {
-	const { userName, email, password, role } = req.body;
-	try {
-		const hashedPassword = await bcrypt.hash(password, 10);
-		const result = await prisma.users.create({
-			data: {
-				name: userName,
-				email,
-				password: hashedPassword,
-				role,
-			},
-		});
-		console.log(result);
-		res.status(201).json({ msg: 'Successfully added user' });
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Could Not Write To DB' });
-	}
+app.post('/register', registerUser, (req, res) => {
+	res.status(201).json({ msg: 'Successfully added user' });
 });
 
-app.put('/update:id', tokenAuth, adminAuth, async (req, res) => {
-	const { name, email, role } = req.body;
-	console.log(req.body);
-
-	try {
-		const updatedUser = await prisma.users.update({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			data: {
-				name: name,
-				email,
-				role,
-			},
-		});
-		console.log(updatedUser);
-		res.status(201).json({ msg: 'Successfully updated user' });
-	} catch (error) {
-		res.status(400).json({ error });
-	}
+app.put('/update:id', tokenAuth, adminAuth, updateUser, async (req, res) => {
+	res.status(201).json({ msg: 'Successfully updated user' });
 });
 
 app.get('/users', tokenAuth, adminAuth, async (req, res) => {
@@ -103,80 +59,21 @@ app.get('/users', tokenAuth, adminAuth, async (req, res) => {
 	res.send(users);
 });
 
-app.delete('/delete:id', tokenAuth, adminAuth, async (req, res) => {
-	const { id } = req.params;
-	try {
-		const deletedUser = await prisma.users.delete({
-			where: {
-				id: parseInt(id),
-			},
-		});
-		console.log(deletedUser);
-		res.status(201).json({ msg: 'Successfully deleted user' });
-	} catch (error) {
-		res.status(400).json({ error });
-	}
+app.delete('/delete:id', tokenAuth, adminAuth, deleteUser, async (req, res) => {
+	res.status(201).json({ msg: 'Successfully deleted user' });
 });
 
-app.get('/userurls:userId', async (req, res) => {
-	const { userId } = req.params;
-	try {
-		const urls = await prisma.users
-			.findUnique({
-				where: {
-					id: parseInt(userId),
-				},
-			})
-			.urls({});
-		return res.status(200).send(urls);
-	} catch (error) {
-		return res.status(400).json({ error });
-	}
+app.get('/userurls:userId', getUserUrls, async (req, res) => {
+	return res.status(200).send(req.urls);
 });
 
-app.post('/createurl', async (req, res) => {
-	const { originalUrl, email } = req.body;
-	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
-		.toString(16)
-		.substring(1);
-	console.log(randomId, originalUrl);
-	try {
-		const newUrl = await prisma.urls.create({
-			data: {
-				hash: randomId,
-				originalUrl,
-				updatedAt: new Date(),
-				...(email && { author: { connect: { email } } }),
-			},
-		});
-		return res.status(201).json({ msg: 'Successfully created url', newUrl });
-	} catch (error) {
-		console.log(error);
-		return res.status(400).json({ error });
-	}
+app.post('/createurl', createUrl, (req, res) => {
+	return res.status(201).json({ msg: 'Successfully created url', Url: req.newUrl });
 });
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
 
-app.use(async (req, res, next) => {
-	try {
-		const hashedUrl = await prisma.urls.update({
-			where: {
-				hash: req.path.substring(1),
-			},
-			data: {
-				viewCount: {
-					increment: 1,
-				},
-				updatedAt: new Date(),
-			},
-		});
-		console.log('page load', hashedUrl);
-		if (hashedUrl) res.redirect(hashedUrl.originalUrl);
-	} catch (error) {
-		console.log(error);
-	}
-
+app.use(getHashedUrl, (req, res) => {
 	res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 

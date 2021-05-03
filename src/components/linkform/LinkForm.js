@@ -21,7 +21,8 @@ const LinkForm = () => {
 			const res = await axios.post('/createurl', {
 				originalUrl: link,
 			});
-			setLink(`https://www.shrinkmy.site/${res.data.newUrl.hash}`);
+			console.log(res);
+			setLink(`https://www.shrinkmy.site/${res.data.Url.hash}`);
 		} catch (error) {
 			console.log(error.message);
 		}
