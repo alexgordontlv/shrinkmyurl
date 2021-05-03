@@ -63,6 +63,57 @@ const createUrl = async (req, res, next) => {
 	}
 };
 
+const updateUser = async (req, res, next) => {
+	const { name, email, role } = req.body;
+	try {
+		const updatedUser = await prisma.users.update({
+			where: {
+				id: parseInt(req.params.id),
+			},
+			data: {
+				name: name,
+				email,
+				role,
+			},
+		});
+		next();
+	} catch (error) {
+		res.status(400).json({ error });
+	}
+};
+
+const deleteUser = async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		const deletedUser = await prisma.users.delete({
+			where: {
+				id: parseInt(id),
+			},
+		});
+
+		next();
+	} catch (error) {
+		res.status(400).json({ error });
+	}
+};
+
+const getUserUrls = async (req, res, next) => {
+	const { userId } = req.params;
+	try {
+		const urls = await prisma.users
+			.findUnique({
+				where: {
+					id: parseInt(userId),
+				},
+			})
+			.urls({});
+		req.urls = urls;
+		next();
+	} catch (error) {
+		return res.status(400).json({ error });
+	}
+};
+
 const getHashedUrl = async (req, res, next) => {
 	try {
 		const hashedUrl = await prisma.urls.update({
@@ -88,4 +139,8 @@ module.exports = {
 	loginUser,
 	registerUser,
 	getHashedUrl,
+	deleteUser,
+	updateUser,
+	getUserUrls,
+	prisma,
 };

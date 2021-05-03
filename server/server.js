@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
 const { redisClient } = require('./utilities/utlities');
-const { createUrl, loginUser, registerUser, getHashedUrl } = require('./middlewares/prismaqueries');
+const { createUrl, loginUser, getUserUrls, updateUser, registerUser, deleteUser, getHashedUrl, prisma } = require('./middlewares/prismaqueries');
 const PORT = process.env.PORT || '5000';
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
@@ -50,26 +50,8 @@ app.post('/register', registerUser, (req, res) => {
 	res.status(201).json({ msg: 'Successfully added user' });
 });
 
-app.put('/update:id', tokenAuth, adminAuth, async (req, res) => {
-	const { name, email, role } = req.body;
-	console.log(req.body);
-
-	try {
-		const updatedUser = await prisma.users.update({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			data: {
-				name: name,
-				email,
-				role,
-			},
-		});
-		console.log(updatedUser);
-		res.status(201).json({ msg: 'Successfully updated user' });
-	} catch (error) {
-		res.status(400).json({ error });
-	}
+app.put('/update:id', tokenAuth, adminAuth, updateUser, async (req, res) => {
+	res.status(201).json({ msg: 'Successfully updated user' });
 });
 
 app.get('/users', tokenAuth, adminAuth, async (req, res) => {
@@ -77,35 +59,12 @@ app.get('/users', tokenAuth, adminAuth, async (req, res) => {
 	res.send(users);
 });
 
-app.delete('/delete:id', tokenAuth, adminAuth, async (req, res) => {
-	const { id } = req.params;
-	try {
-		const deletedUser = await prisma.users.delete({
-			where: {
-				id: parseInt(id),
-			},
-		});
-		console.log(deletedUser);
-		res.status(201).json({ msg: 'Successfully deleted user' });
-	} catch (error) {
-		res.status(400).json({ error });
-	}
+app.delete('/delete:id', tokenAuth, adminAuth, deleteUser, async (req, res) => {
+	res.status(201).json({ msg: 'Successfully deleted user' });
 });
 
-app.get('/userurls:userId', async (req, res) => {
-	const { userId } = req.params;
-	try {
-		const urls = await prisma.users
-			.findUnique({
-				where: {
-					id: parseInt(userId),
-				},
-			})
-			.urls({});
-		return res.status(200).send(urls);
-	} catch (error) {
-		return res.status(400).json({ error });
-	}
+app.get('/userurls:userId', getUserUrls, async (req, res) => {
+	return res.status(200).send(req.urls);
 });
 
 app.post('/createurl', createUrl, (req, res) => {
