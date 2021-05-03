@@ -1,7 +1,7 @@
-const redis = require('redis');
-const REDIS_PORT = process.env.PORT || 6379;
-const redisClient = redis.createClient(REDIS_PORT);
+// const redis = require('redis');
+// const REDIS_PORT = process.env.PORT || 6379;
+// const redisClient = redis.createClient(REDIS_PORT);
 
-module.exports = {
-	redisClient,
-};
+// module.exports = {
+// 	redisClient,
+// };
