@@ -10,7 +10,6 @@ const LinkForm = () => {
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const handleSubmit = async (e) => {
-		console.log(link);
 		e.preventDefault();
 		if (!validUrl.isUri(link)) {
 			setOpenModal('Please provide a valid URL');
@@ -20,11 +19,11 @@ const LinkForm = () => {
 		setFetching(true);
 		try {
 			alert('success');
-			// const res = await axios.post('/createurl', {
-			// 	originalUrl: link,
-			// });
-			// console.log(res);
-			// setLink(`https://www.shrinkmy.site/${res.data.Url.hash}`);
+			const res = await axios.post('/createurl', {
+				originalUrl: link,
+			});
+			console.log(res);
+			setLink(`https://www.shrinkmy.site/${res.data.Url.hash}`);
 		} catch (error) {
 			console.log(error.message);
 		}
