@@ -42,7 +42,10 @@ const loginUser = async (req, res, next) => {
 };
 
 const createUrl = async (req, res, next) => {
-	const { originalUrl, email } = req.body;
+	let { originalUrl, email } = req.body;
+	if (!originalUrl.includes('http')) {
+		originalUrl = 'https://' + originalUrl;
+	}
 	const randomId = Math.floor((1 + Math.random()) * 0x1000000)
 		.toString(16)
 		.substring(1);
