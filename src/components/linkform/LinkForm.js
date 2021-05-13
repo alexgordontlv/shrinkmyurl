@@ -3,21 +3,22 @@ import axios from '../../utilities/axios/axios';
 import { useModalContext } from '../../context/modal.context';
 import WrapperCard from '../wrappercard/WrapperCard';
 import CustomInput from '../custominput/CustomInput';
+import validUrl from 'valid-url';
 
 const LinkForm = () => {
 	const { setOpenModal } = useModalContext();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const handleSubmit = async (e) => {
-		console.log(link);
 		e.preventDefault();
-		if (!link) {
-			setOpenModal('We cannot shrink an empty link, Please provide a link');
+		if (!validUrl.isUri(link)) {
+			setOpenModal('Please provide a valid URL');
 			return;
 		}
 
 		setFetching(true);
 		try {
+			alert('success');
 			const res = await axios.post('/createurl', {
 				originalUrl: link,
 			});
