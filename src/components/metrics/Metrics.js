@@ -2,8 +2,35 @@
 import React from 'react';
 import { ReactComponent as DataLogo } from '../../assets/data2.svg';
 import { Link } from 'react-router-dom';
+import axios from '../../utilities/axios/axios';
+import { useUserContext } from '../../context/user.context';
+import { useHistory } from 'react-router-dom';
+import { useModalContext } from '../../context/modal.context';
 
 const Metrics = () => {
+	const context = useUserContext();
+	let history = useHistory();
+	const { setOpenModal } = useModalContext();
+	const handleSubmit = async () => {
+		if (context.state.currentUser) {
+			setOpenModal('You allready signed in');
+			return;
+		}
+		try {
+			const response = await axios.post('/login', {
+				email: 'test@gmail.com',
+				password: 'test123',
+			});
+			if (response.data.user) {
+				context.setCurrentUser(response.data.user);
+				localStorage.setItem('currentUser', JSON.stringify(response.data.user));
+				history.push('/');
+			}
+		} catch (error) {
+			console.log('ERROR:', error);
+		}
+	};
+
 	return (
 		<div className='flex-col mt-10 self-start'>
 			<h2 className='text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
@@ -17,11 +44,11 @@ const Metrics = () => {
 			</div>
 			<div className=' flex lg:flex-shrink-0 justify-center items-center mt-8'>
 				<div className='inline-flex rounded-md shadow'>
-					<Link to='/register'>
-						<button className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800'>
-							Get started
-						</button>
-					</Link>
+					<button
+						onClick={() => handleSubmit()}
+						className='inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-black hover:bg-gray-800'>
+						Demo Sign In
+					</button>
 				</div>
 				<div className='ml-3 inline-flex '>
 					<Link to='/about' className='inline-flex items-center justify-center px-5 py-3 text-base font-medium  text-black hover:underline'>
