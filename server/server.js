@@ -21,7 +21,7 @@ app.post('/login', loginUser, async (req, res) => {
 		if (hashResponse) {
 			const accessToken = await jwt.sign(
 				{
-					id: req.user,
+					id: req.user.id,
 				},
 				process.env.ACCESS_TOKEN_SECRET,
 				{
@@ -51,9 +51,8 @@ app.put('/update:id', tokenAuth, adminAuth, updateUser, async (req, res) => {
 	res.status(201).json({ msg: 'Successfully updated user' });
 });
 
-app.get('/users', tokenAuth, adminAuth, async (req, res) => {
-	const users = await prisma.users.findMany();
-	res.send(users);
+app.get('/users/:userId', tokenAuth, adminAuth, async (req, res) => {
+	res.send(req.users);
 });
 
 app.delete('/delete:id', tokenAuth, adminAuth, deleteUser, async (req, res) => {

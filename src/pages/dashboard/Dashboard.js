@@ -10,7 +10,7 @@ const Dashboard = () => {
 		state: { currentUser },
 	} = useUserContext();
 
-	const { isLoading, error, data } = useQuery('links', async () => {
+	const { isLoading, error, data } = useQuery('users', async () => {
 		const { data } = await axios.get(`/userurls/${currentUser.id}`);
 		return data;
 	});
@@ -43,7 +43,7 @@ const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody className='bg-white divide-y divide-gray-200'>
-								{data.map((link, idx) => (
+								{data?.map((link, idx) => (
 									<tr key={idx}>
 										<td className='px-6 py-4 whitespace-nowrap'>
 											<div className='flex items-center justify-center'>
@@ -51,7 +51,7 @@ const Dashboard = () => {
 													<div
 														className='text-sm font-medium text-gray-900 cursor-pointer'
 														onClick={() => window.open(link.originalUrl, '_blank')}>
-														{link.originalUrl.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
+														{link.originalUrl?.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
 													</div>
 												</div>
 											</div>
