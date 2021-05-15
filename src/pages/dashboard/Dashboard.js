@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from '../../utilities/axios/axios';
 import { useUserContext } from '../../context/user.context';
 import { useQuery } from 'react-query';
 import moment from 'moment';
+import Spinner from '../../components/spinner/Spinner';
 
 const Dashboard = () => {
-	const { isLoading, error, links } = useQuery('links', async () => {
-		const { data } = await axios.get(`/userurls/${currentUser.id}`);
-		return data;
-	});
-
 	const {
 		state: { currentUser },
 	} = useUserContext();
 
-	if (isLoading) return 'Loading...';
+	const { isLoading, error, data } = useQuery('links', async () => {
+		const { data } = await axios.get(`/userurls/${currentUser.id}`);
+		return data;
+	});
+	if (isLoading) return <Spinner />;
 	if (error) return 'An error has occurred: ' + error.message;
 
 	return (
@@ -43,12 +43,16 @@ const Dashboard = () => {
 								</tr>
 							</thead>
 							<tbody className='bg-white divide-y divide-gray-200'>
-								{links.map((link, idx) => (
+								{data.map((link, idx) => (
 									<tr key={idx}>
 										<td className='px-6 py-4 whitespace-nowrap'>
 											<div className='flex items-center justify-center'>
 												<div className='ml-4'>
-													<div className='text-sm font-medium text-gray-900'>{link.originalUrl}</div>
+													<div
+														className='text-sm font-medium text-gray-900 cursor-pointer'
+														onClick={() => window.open(link.originalUrl, '_blank')}>
+														{link.originalUrl.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
+													</div>
 												</div>
 											</div>
 										</td>
@@ -59,7 +63,7 @@ const Dashboard = () => {
 											<div className='text-sm text-gray-900'>{moment(link.createdAt).format('Do MMMM YYYY')}</div>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap'>
-											<div className='text-sm text-gray-900'>{moment(link.updatedAt).format('Do MMMM YYYY')}</div>
+											<div className='text-sm text-gray-900'>{moment(link.updatedAt).format('lll ')}</div>
 										</td>
 										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{link.viewCount}</td>
 									</tr>
