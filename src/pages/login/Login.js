@@ -27,6 +27,7 @@ const Login = () => {
 				password,
 			});
 			if (response.data.user) {
+				console.log(response.data.user);
 				context.setCurrentUser(response.data.user);
 				localStorage.setItem('currentUser', JSON.stringify(response.data.user));
 				history.push('/');

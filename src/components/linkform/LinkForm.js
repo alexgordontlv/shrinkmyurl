@@ -4,12 +4,18 @@ import { useModalContext } from '../../context/modal.context';
 import WrapperCard from '../wrappercard/WrapperCard';
 import CustomInput from '../custominput/CustomInput';
 import validUrl from 'valid-url';
+import { useUserContext } from '../../context/user.context';
 
 const LinkForm = () => {
 	const { setOpenModal } = useModalContext();
+	const {
+		state: { currentUser },
+	} = useUserContext();
+
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const handleSubmit = async (e) => {
+		console.log(currentUser);
 		e.preventDefault();
 		if (!validUrl.isUri(link)) {
 			setOpenModal('Please provide a valid URL');
@@ -18,11 +24,10 @@ const LinkForm = () => {
 
 		setFetching(true);
 		try {
-			alert('success');
 			const res = await axios.post('/createurl', {
 				originalUrl: link,
+				email: currentUser ? currentUser.email : null,
 			});
-			console.log(res);
 			setLink(`https://www.shrinkmy.site/${res.data.Url.hash}`);
 		} catch (error) {
 			console.log(error.message);

@@ -31,9 +31,7 @@ app.post('/login', loginUser, async (req, res) => {
 			console.log('req.user', req.user);
 			res.status(200).send({
 				user: {
-					id: req.user,
-					role: req.user,
-					email: req.user,
+					...req.user,
 					token: accessToken,
 				},
 			});
@@ -62,7 +60,7 @@ app.delete('/delete:id', tokenAuth, adminAuth, deleteUser, async (req, res) => {
 	res.status(201).json({ msg: 'Successfully deleted user' });
 });
 
-app.get('/userurls:userId', getUserUrls, async (req, res) => {
+app.get('/userurls/:userId', getUserUrls, async (req, res) => {
 	return res.status(200).send(req.urls);
 });
 
