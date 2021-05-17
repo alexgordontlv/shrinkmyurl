@@ -13,7 +13,7 @@ export default function UserCard() {
 		const { data } = await axios.get(`/users/${currentUser.id}`);
 		return data;
 	});
-
+	//hi
 	if (isLoading) return <Spinner />;
 	if (error) return 'An error has occurred: ' + error.message;
 
