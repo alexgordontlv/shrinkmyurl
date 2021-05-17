@@ -6,6 +6,12 @@ const UserContext = createContext();
 export const useUserContext = () => {
 	return useContext(UserContext);
 };
+export const useGetCurrentUser = () => {
+	const {
+		state: { currentUser },
+	} = useUserContext();
+	return currentUser;
+};
 
 const initialState = {
 	currentUser: null,

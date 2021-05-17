@@ -4,14 +4,11 @@ import { useModalContext } from '../../context/modal.context';
 import WrapperCard from '../wrappercard/WrapperCard';
 import CustomInput from '../custominput/CustomInput';
 import validUrl from 'valid-url';
-import { useUserContext } from '../../context/user.context';
+import { useGetCurrentUser } from '../../context/user.context';
 
 const LinkForm = () => {
 	const { setOpenModal } = useModalContext();
-	const {
-		state: { currentUser },
-	} = useUserContext();
-
+	const currentUser = useGetCurrentUser();
 	const [link, setLink] = useState('');
 	const [fetching, setFetching] = useState(false);
 	const handleSubmit = async (e) => {
