@@ -28,7 +28,6 @@ app.post('/login', loginUser, async (req, res) => {
 					expiresIn: '20m',
 				}
 			);
-			console.log('req.user', req.user);
 			res.status(200).send({
 				user: {
 					...req.user,

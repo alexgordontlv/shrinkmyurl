@@ -1,15 +1,12 @@
 import React from 'react';
 import axios from '../../utilities/axios/axios';
-import { useUserContext } from '../../context/user.context';
+import { useGetCurrentUser } from '../../context/user.context';
 import { useQuery } from 'react-query';
 import moment from 'moment';
 import Spinner from '../../components/spinner/Spinner';
 
 const Dashboard = () => {
-	const {
-		state: { currentUser },
-	} = useUserContext();
-
+	const currentUser = useGetCurrentUser();
 	const { isLoading, error, data } = useQuery('users', async () => {
 		const { data } = await axios.get(`/userurls/${currentUser.id}`);
 		return data;
