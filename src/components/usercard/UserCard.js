@@ -3,7 +3,7 @@ import Spinner from '../spinner/Spinner';
 import { useQuery } from 'react-query';
 import axios from '../../utilities/axios/axios';
 import { useUserContext } from '../../context/user.context';
-import WrapperCard from '../wrappercard/WrapperCard';
+
 export default function UserCard() {
 	const {
 		state: { currentUser },
@@ -13,7 +13,7 @@ export default function UserCard() {
 		const { data } = await axios.get(`/users/${currentUser.id}`);
 		return data;
 	});
-	//hi
+
 	if (isLoading) return <Spinner />;
 	if (error) return 'An error has occurred: ' + error.message;
 
