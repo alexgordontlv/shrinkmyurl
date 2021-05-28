@@ -6,21 +6,15 @@ import moment from 'moment';
 import Spinner from '../../components/spinner/Spinner';
 
 const Dashboard = () => {
-	const [flag, setFlag] = useState(false);
 	const currentUser = useGetCurrentUser();
 	const { isLoading, error, data } = useQuery('users', async () => {
 		const { data } = await axios.get(`/userurls/${currentUser.id}`);
 		return data;
 	});
 
-	const handleSort = () => {
-		data.sort((a, b) => (a.viewCount > b.viewCount ? 1 : -1));
-		console.log(data);
-	};
-
 	if (isLoading) return <Spinner />;
 	if (error) return 'An error has occurred: ' + error.message;
-
+	data.sort((a, b) => (a.viewCount > b.viewCount ? 1 : -1));
 	return (
 		<div className='flex justify-center mt-10'>
 			<div className='-my-2 overflow-x-auto max-w-screen-lg'>
@@ -41,42 +35,37 @@ const Dashboard = () => {
 									<th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
 										Last Viewed
 									</th>
-									<th
-										onClick={handleSort}
-										scope='col'
-										className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
+									<th scope='col' className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>
 										View Count
 									</th>
 								</tr>
 							</thead>
 							<tbody className='bg-white divide-y divide-gray-200'>
-								{data
-									.sort((a, b) => (a.viewCount > b.viewCount ? 1 : -1))
-									.map((link, idx) => (
-										<tr key={idx}>
-											<td className='px-6 py-4 whitespace-nowrap'>
-												<div className='flex items-center justify-center'>
-													<div className='ml-4'>
-														<div
-															className='text-sm font-medium text-gray-900 cursor-pointer'
-															onClick={() => window.open(`https://www.shrinkmy.site/${link.hash}`, '_blank')}>
-															{link.originalUrl?.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
-														</div>
+								{data.map((link, idx) => (
+									<tr key={idx}>
+										<td className='px-6 py-4 whitespace-nowrap'>
+											<div className='flex items-center justify-center'>
+												<div className='ml-4'>
+													<div
+														className='text-sm font-medium text-gray-900 cursor-pointer'
+														onClick={() => window.open(`https://www.shrinkmy.site/${link.hash}`, '_blank')}>
+														{link.originalUrl?.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
 													</div>
 												</div>
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap'>
-												<div className='text-sm text-gray-900'>{link.hash}</div>
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap'>
-												<div className='text-sm text-gray-900'>{moment(link.createdAt).format('Do MMMM YYYY')}</div>
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap'>
-												<div className='text-sm text-gray-900'>{moment(link.updatedAt).format('lll ')}</div>
-											</td>
-											<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{link.viewCount}</td>
-										</tr>
-									))}
+											</div>
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap'>
+											<div className='text-sm text-gray-900'>{link.hash}</div>
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap'>
+											<div className='text-sm text-gray-900'>{moment(link.createdAt).format('Do MMMM YYYY')}</div>
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap'>
+											<div className='text-sm text-gray-900'>{moment(link.updatedAt).format('lll ')}</div>
+										</td>
+										<td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>{link.viewCount}</td>
+									</tr>
+								))}
 							</tbody>
 						</table>
 					</div>
