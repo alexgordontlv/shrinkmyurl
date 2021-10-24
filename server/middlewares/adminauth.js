@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const logger = require('../utilities/logger');
 const prisma = new PrismaClient();
 const adminAuth = async (req, res, next) => {
-	logger.indo(`starting adminAuth middleware`);
+	logger.info(`starting adminAuth middleware`);
 	if (!req.user) {
 		logger.error('There is no user');
 		return res.status(400).json({ err: 'There is no user' });

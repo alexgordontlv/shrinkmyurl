@@ -21,9 +21,10 @@ const Metrics = () => {
 				email: 'test@gmail.com',
 				password: 'test123',
 			});
-			if (response.data.user) {
-				context.setCurrentUser(response.data.user);
-				localStorage.setItem('currentUser', JSON.stringify(response.data.user));
+			if (response.data) {
+				const responseUser = response.data;
+				context.setCurrentUser(responseUser);
+				localStorage.setItem('currentUser', JSON.stringify(responseUser));
 				history.push('/');
 			}
 		} catch (error) {

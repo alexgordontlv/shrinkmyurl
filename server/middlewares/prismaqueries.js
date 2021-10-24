@@ -1,6 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 const bcrypt = require('bcryptjs');
+const logger = require('../utilities/logger');
 
 const registerUser = async (req, res, next) => {
 	const { userName, email, password, role } = req.body;
@@ -24,7 +25,7 @@ const registerUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
-	console.log('middleware');
+	logger.info(`starting loginUser middleware`);
 	try {
 		const response = await prisma.users.findMany({
 			where: {
@@ -33,6 +34,7 @@ const loginUser = async (req, res, next) => {
 		});
 		req.user = response[0];
 		if (!req.user) {
+			logger.error(`No user with email: ${req.body.email}`);
 			res.status(400).send('No Such User');
 		}
 		req.isAuthorized = await bcrypt.compare(req.body.password, req.user.password);
@@ -42,6 +44,7 @@ const loginUser = async (req, res, next) => {
 			res.status(401).send('Unathorized');
 		}
 	} catch (error) {
+		logger.error(`Database Promise Error`);
 		res.status(500).send('Database Promise Error');
 	}
 };
