@@ -3,8 +3,6 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
 const { createUrl, loginUser, getUserUrls, updateUser, registerUser, deleteUser, getHashedUrl, prisma } = require('./middlewares/prismaqueries');
@@ -16,30 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/login', loginUser, async (req, res) => {
-	try {
-		const hashResponse = await bcrypt.compare(req.body.password, req.user.password);
-		if (hashResponse) {
-			const accessToken = await jwt.sign(
-				{
-					id: req.user.id,
-				},
-				process.env.ACCESS_TOKEN_SECRET,
-				{
-					expiresIn: '20m',
-				}
-			);
-			res.status(200).send({
-				user: {
-					...req.user,
-					token: accessToken,
-				},
-			});
-		} else {
-			res.status(401).send('Password is incorrect');
-		}
-	} catch (error) {
-		res.status(500).send();
-	}
+	res.status(200).send(req.tokenizedUser);
 });
 
 app.post('/register', registerUser, (req, res) => {
