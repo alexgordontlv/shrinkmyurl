@@ -35,7 +35,12 @@ const loginUser = async (req, res, next) => {
 		if (!req.user) {
 			res.status(400).send('No Such User');
 		}
-		next();
+		req.isAuthorized = await bcrypt.compare(req.body.password, req.user.password);
+		if (req.isAuthorized) {
+			next();
+		} else {
+			res.status(401).send('Unathorized');
+		}
 	} catch (error) {
 		res.status(500).send('Database Promise Error');
 	}
