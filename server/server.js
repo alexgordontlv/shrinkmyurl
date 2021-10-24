@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const { tokenAuth } = require('./middlewares/tokenauth');
 const { adminAuth } = require('./middlewares/adminauth');
+const { jasonWebToken } = require('./middlewares/jwt');
 const { createUrl, loginUser, getUserUrls, updateUser, registerUser, deleteUser, getHashedUrl, prisma } = require('./middlewares/prismaqueries');
 const PORT = process.env.PORT || '5000';
 
@@ -13,7 +14,7 @@ app.use(express.static('public'));
 app.use(cors());
 app.use(express.json());
 
-app.post('/login', loginUser, async (req, res) => {
+app.post('/login', loginUser, jasonWebToken, async (req, res) => {
 	res.status(200).send(req.tokenizedUser);
 });
 

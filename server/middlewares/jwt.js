@@ -21,4 +21,4 @@ const jasonWebToken = async (req, res, next) => {
 	}
 };
 
-module.exports = jasonWebToken;
+module.exports = { jasonWebToken };
