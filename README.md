@@ -1,8 +1,6 @@
 
 
 
-
-<img align="center" alt="systemdesign" width="60%" src="https://media-exp1.licdn.com/dms/image/C4E22AQG5y6iaZGZ2Ig/feedshare-shrink_2048_1536/0/1619096081818?e=1622073600&v=beta&t=7vxB2D2VoqT6adMFqeSVUoUxAYb8exVPINQ7Qz_gxhQ" />
 <br />
 <br />
 <br />
@@ -10,7 +8,6 @@
 # Shrinkmy.site - A URL shortener system
 - link metrics
 - protected urls
-- add events with customers to your Google Calendar
 
 ## Tech Stack
 
