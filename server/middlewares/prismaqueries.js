@@ -40,7 +40,7 @@ const loginUser = async (req, res, next) => {
 			res.status(400).send('No Such User');
 		}
 		req.isAuthorized = await bcrypt.compare(req.body.password, req.user.password);
-		logger.info(`User isAuthorized`, isAuthorized);
+		logger.info(`User isAuthorized`, req.isAuthorized);
 		if (req.isAuthorized) {
 			next();
 		} else {
