@@ -34,11 +34,13 @@ const loginUser = async (req, res, next) => {
 			},
 		});
 		req.user = response[0];
+		logger.info(`Found user`, req.user);
 		if (!req.user) {
 			logger.error(`No user with email: ${req.body.email}`);
 			res.status(400).send('No Such User');
 		}
 		req.isAuthorized = await bcrypt.compare(req.body.password, req.user.password);
+		logger.info(`User isAuthorized`, isAuthorized);
 		if (req.isAuthorized) {
 			next();
 		} else {
