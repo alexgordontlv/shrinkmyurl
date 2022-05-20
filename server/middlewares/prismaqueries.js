@@ -25,6 +25,7 @@ const registerUser = async (req, res, next) => {
 };
 
 const loginUser = async (req, res, next) => {
+	console.log('LOGIN', req.body);
 	logger.info(`starting loginUser middleware`);
 	try {
 		const response = await prisma.users.findMany({
