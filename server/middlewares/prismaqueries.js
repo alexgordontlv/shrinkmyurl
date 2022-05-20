@@ -47,7 +47,7 @@ const loginUser = async (req, res, next) => {
 			res.status(401).send('Unathorized');
 		}
 	} catch (error) {
-		logger.error(`Database Promise Error`);
+		logger.error(`Database Promise Error`, error);
 		res.status(500).send('Database Promise Error');
 	}
 };
