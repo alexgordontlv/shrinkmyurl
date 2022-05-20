@@ -2,6 +2,9 @@
   "name": "simpleportal",
   "version": "0.1.0",
   "private": true,
+    "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@headlessui/react": "^1.0.0",
     "@heroicons/react": "^1.0.1",
