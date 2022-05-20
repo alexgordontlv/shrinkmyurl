@@ -22,7 +22,7 @@
     "simple-node-logger": "^21.8.12"
   },
   "devDependencies": {
-    "@prisma/cli": "^2.18.0",
-    "prisma": "^2.18.1"
+    "@prisma/cli": "^3.14.0",
+    "prisma": "^3.14.0"
   }
 }
