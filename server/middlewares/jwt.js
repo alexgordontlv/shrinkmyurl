@@ -13,13 +13,16 @@ const jasonWebToken = async (req, res, next) => {
 				expiresIn: '20m',
 			}
 		);
+		logger.info(`JWT succeeded `);
+
 		req.tokenizedUser = {
 			...req.user,
 			token: accessToken,
 		};
-		logger.info(`Tokenzied user `, eq.tokenizedUser);
+		logger.info(`Tokenzied user `, req.tokenizedUser);
 		next();
 	} catch (error) {
+		logger.error(`JWT Error`, error);
 		res.status(500).send();
 	}
 };
