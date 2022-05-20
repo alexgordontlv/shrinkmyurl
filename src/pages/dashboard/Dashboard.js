@@ -46,9 +46,7 @@ const Dashboard = () => {
 										<td className='px-6 py-4 whitespace-nowrap'>
 											<div className='flex items-center justify-center'>
 												<div className='ml-4'>
-													<div
-														className='text-sm font-medium text-gray-900 cursor-pointer'
-														onClick={() => window.open(`https://www.shrinkmy.site/${link.hash}`, '_blank')}>
+													<div className='text-sm font-medium text-gray-900 cursor-pointer' onClick={() => window.open(`https://simple-portal.herokuapp.com/${link.hash}`, '_blank')}>
 														{link.originalUrl?.length > 30 ? link.originalUrl.slice(0, 30) + '...' : link.originalUrl}
 													</div>
 												</div>

@@ -14,7 +14,6 @@ const LinkForm = () => {
 	const [postFetching, setPostFetching] = useState(false);
 
 	const handleSubmit = async (e) => {
-		console.log(currentUser);
 		e.preventDefault();
 		if (!validUrl.isUri(link)) {
 			setOpenModal('Please provide a valid URL');
@@ -27,7 +26,7 @@ const LinkForm = () => {
 				originalUrl: link,
 				email: currentUser ? currentUser.email : null,
 			});
-			setLink(`https://www.shrinkmy.site/${res.data.Url.hash}`);
+			setLink(`https://simple-portal.herokuapp.com/${res.data.Url.hash}`);
 			setPostFetching(true);
 		} catch (error) {
 			console.log(error.message);
