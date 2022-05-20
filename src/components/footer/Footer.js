@@ -20,7 +20,7 @@ const Footer = () => {
 		<div className='flex justify-center self-start'>
 			<div className='flex-col w-8/12'>
 				<div className=' '>
-					<form onSubmit={handleSubmit} className='flex items-center justify-center'>
+					<form onSubmit={handleSubmit} className='flex items-center justify-center '>
 						<CustomInput value={link} type='text' moreStyle='mb-4' onChange={(e) => setLink(e.target.value)} placeholder='Enter email to get more info' />
 						<button type='submit' className={` bg-black text-white p-2   rounded   hover:bg-gray-800 ml-3`}>
 							<svg xmlns='http://www.w3.org/2000/svg' className={`h-6 w-6 ${fetching && 'animate-pulse'}`} fill='none' viewBox='0 0 24 24' stroke='currentColor' style={{ color: '#15bbca' }}>
